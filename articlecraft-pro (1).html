@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArticleCraft Pro – by TalonA14Studios</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-ui:'Nunito',sans-serif;--font-body:'Lora',serif;--font-mono:'JetBrains Mono',monospace;
+  --g-primary:#f97316;--g-secondary:#fbbf24;--g-bg:#f0f4f9;--g-surface:#fff;
+  --g-panel:#f8f9fa;--g-accent:#10b981;--g-text:#202124;--g-muted:#5f6368;
+  --g-border:#e0e0e0;--g-header:#fff;--g-badge:#fef3c7;--g-badge-text:#b45309;
+  --g-efont:1rem;--g-elh:1.8;--g-etitle:2rem;
+  --grade-primary:#f97316;
+}
+body.mid{--grade-primary:#2563eb;--g-badge:#dbeafe;--g-badge-text:#1d4ed8;}
+body.high{--grade-primary:#0f766e;--g-badge:#ccfbf1;--g-badge-text:#0f766e;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-ui);background:var(--g-bg);color:var(--g-text);min-height:100vh;}
+button{font-family:var(--font-ui);cursor:pointer;}
+input,select,textarea{font-family:var(--font-ui);}
+
+/* ── SPLASH ── */
+#splash{position:fixed;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 55%,#0f3460 100%);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s,transform .5s}
+#splash.exit{opacity:0;transform:scale(.97);pointer-events:none}
+.sp-logo{font-size:2.6rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:.6rem}
+.sp-logo .acc{color:#f97316}
+.sp-logo .ic{width:52px;height:52px;background:#f97316;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.7rem}
+.sp-sub{color:rgba(255,255,255,.5);font-size:.88rem;text-align:center;max-width:400px;line-height:1.6}
+.sp-tagline{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.6rem 1.2rem;color:rgba(255,255,255,.65);font-size:.8rem;text-align:center;max-width:440px;line-height:1.6}
+.sp-cards{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.rc{width:185px;padding:1.5rem 1.2rem;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:16px;cursor:pointer;text-align:center;color:#fff;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.55rem}
+.rc:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.38);transform:translateY(-3px)}
+.rc .ri{font-size:2.4rem}.rc .rt{font-size:.95rem;font-weight:800}.rc .rd{font-size:.7rem;opacity:.5;line-height:1.4}
+.sp-feats{display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;max-width:580px}
+.sp-feat{font-size:.66rem;background:rgba(249,115,22,.14);border:1px solid rgba(249,115,22,.28);color:#fbbf24;border-radius:20px;padding:3px 10px;font-weight:700}
+
+/* ── HEADER (Google Docs style) ── */
+header{background:#fff;border-bottom:1px solid var(--g-border);height:56px;padding:0 1rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.hl{font-size:1.15rem;font-weight:900;display:flex;align-items:center;gap:.45rem;color:var(--g-text)}
+.hl .acc{color:var(--g-primary)}
+.hl .hic{width:26px;height:26px;background:var(--g-primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.hdr-mid{display:flex;align-items:center;gap:.5rem}
+.gp{display:flex;background:#f1f3f4;border-radius:30px;padding:3px;gap:2px}
+.gb{padding:4px 12px;border-radius:30px;border:none;background:transparent;color:var(--g-muted);font-size:.72rem;font-weight:700;transition:all .2s}
+.gb.on{background:var(--grade-primary);color:#fff}
+.gb:hover:not(.on){color:var(--g-text)}
+.rbadge{padding:3px 10px;border-radius:20px;font-size:.67rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;background:#f1f3f4;color:var(--g-muted);border:1px solid var(--g-border)}
+.hdr-r{display:flex;align-items:center;gap:.4rem}
+.hb{padding:6px 13px;border-radius:6px;border:none;font-size:.76rem;font-weight:700;transition:all .2s}
+.hb.pri{background:var(--grade-primary);color:#fff}
+.hb.pri:hover{opacity:.88}
+.hb.gh{background:transparent;color:var(--g-muted);border:1px solid var(--g-border)}
+.hb.gh:hover{background:#f1f3f4;color:var(--g-text)}
+.hb.wiki-hb{background:#1a73e8;color:#fff}
+.hb.wiki-hb:hover{opacity:.88}
+
+/* ── GDOCS TOOLBAR ── */
+#gdtb{background:#fff;border-bottom:1px solid var(--g-border);padding:4px 1rem;display:flex;align-items:center;gap:2px;flex-wrap:wrap;position:sticky;top:56px;z-index:290;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.tb-sep{width:1px;height:20px;background:var(--g-border);margin:0 4px;flex-shrink:0}
+.tb-btn{padding:5px 7px;border:none;background:transparent;border-radius:4px;font-size:.8rem;color:var(--g-text);cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:28px;height:28px;transition:background .12s;position:relative;}
+.tb-btn:hover{background:#f1f3f4}
+.tb-btn.active{background:#e8f0fe;color:#1a73e8}
+.tb-btn[title]:hover::after{content:attr(title);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#3c4043;color:#fff;font-size:.62rem;padding:3px 7px;border-radius:4px;white-space:nowrap;z-index:400;font-weight:700;pointer-events:none}
+.tb-select{padding:3px 6px;border:1px solid transparent;background:transparent;border-radius:4px;font-size:.78rem;color:var(--g-text);cursor:pointer;height:28px;outline:none;}
+.tb-select:hover{border-color:var(--g-border);background:#f1f3f4}
+.tb-select:focus{border-color:#1a73e8}
+.tb-color-wrap{position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.tb-color-bar{width:18px;height:3px;border-radius:2px;margin-top:1px}
+.tb-zoom{font-size:.72rem;font-weight:700;color:var(--g-muted);padding:2px 6px;background:#f1f3f4;border-radius:4px;border:1px solid var(--g-border);cursor:pointer;min-width:50px;text-align:center}
+
+/* ── MENU BAR ── */
+#menubar{background:#fff;border-bottom:1px solid var(--g-border);padding:0 1rem;display:flex;align-items:center;gap:0;height:32px}
+.menu-item{padding:4px 10px;font-size:.76rem;color:var(--g-muted);cursor:pointer;border-radius:4px;font-weight:600;position:relative;user-select:none}
+.menu-item:hover{background:#f1f3f4;color:var(--g-text)}
+.menu-item:hover .menu-drop{display:flex}
+.menu-drop{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--g-border);border-radius:6px;box-shadow:0 4px 20px rgba(0,0,0,.14);z-index:500;flex-direction:column;min-width:200px;padding:4px 0;}
+.md-item{padding:6px 16px;font-size:.78rem;color:var(--g-text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.md-item:hover{background:#f1f3f4}
+.md-item .kshort{font-size:.67rem;color:var(--g-muted);font-family:var(--font-mono)}
+.md-sep{height:1px;background:var(--g-border);margin:4px 0}
+
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-columns:220px 1fr 240px;height:calc(100vh - 56px - 32px - 36px);overflow:hidden}
+body.focus-mode .app{grid-template-columns:0 1fr 0;height:100vh}
+body.focus-mode #gdtb,body.focus-mode #menubar,body.focus-mode header{display:none}
+
+/* ── LEFT (Document Outline) ── */
+.lp{background:#fff;border-right:1px solid var(--g-border);overflow-y:auto;display:flex;flex-direction:column;}
+.lp-tabs{display:flex;border-bottom:1px solid var(--g-border);}
+.lp-tab{flex:1;padding:8px 4px;font-size:.7rem;font-weight:700;text-align:center;cursor:pointer;color:var(--g-muted);border-bottom:2px solid transparent;transition:all .15s}
+.lp-tab.on{color:var(--grade-primary);border-bottom-color:var(--grade-primary)}
+.lp-pane{display:none;padding:.6rem;flex:1;overflow-y:auto}
+.lp-pane.on{display:block}
+.sh{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--g-muted);padding:.25rem .1rem .35rem;border-bottom:1px solid var(--g-border);margin-bottom:.4rem}
+.sec{margin-bottom:.9rem}
+/* Outline headings */
+.outline-item{padding:5px 8px;font-size:.75rem;cursor:pointer;border-radius:5px;color:var(--g-muted);transition:all .12s;display:flex;align-items:center;gap:5px;line-height:1.3}
+.outline-item:hover{background:#f1f3f4;color:var(--g-text)}
+.outline-item.h1{font-weight:800;color:var(--g-text);font-size:.8rem}
+.outline-item.h2{padding-left:16px;font-weight:700}
+.outline-item.h3{padding-left:28px;font-size:.7rem}
+.outline-empty{font-size:.74rem;color:var(--g-muted);text-align:center;padding:1rem .5rem;line-height:1.5}
+/* Styles panel */
+.style-btn{width:100%;padding:7px 10px;border:1.5px solid var(--g-border);background:#fff;border-radius:7px;text-align:left;font-size:.8rem;font-weight:600;cursor:pointer;margin-bottom:4px;transition:all .15s;color:var(--g-text)}
+.style-btn:hover{border-color:var(--grade-primary);background:#f8f9ff}
+/* Insert panel */
+.ins-btn{display:flex;align-items:center;gap:8px;width:100%;padding:7px 10px;border:1.5px solid var(--g-border);background:#fff;border-radius:7px;font-size:.74rem;font-weight:700;cursor:pointer;margin-bottom:4px;transition:all .15s;color:var(--g-text)}
+.ins-btn:hover{background:var(--grade-primary);color:#fff;border-color:var(--grade-primary)}
+.ins-btn .ii{font-size:.9rem;width:18px;text-align:center}
+/* Stickers */
+.strow{display:flex;gap:5px;flex-wrap:wrap}
+.st{font-size:1.25rem;cursor:pointer;transition:transform .15s;display:inline-block}
+.st:hover{transform:scale(1.35) rotate(-5deg)}
+body:not(.elem) .strow-sec{display:none}
+
+/* ── CENTER ── */
+.ew{overflow-y:auto;background:var(--g-bg);padding:2rem 0;}
+.doc-page{background:#fff;width:794px;min-height:1123px;margin:0 auto 2rem;padding:72px 96px;box-shadow:0 1px 4px rgba(0,0,0,.14);position:relative;}
+.doc-page.no-shadow{box-shadow:none;min-height:unset;padding:2rem 3rem;width:100%}
+.page-header{font-size:.72rem;color:var(--g-muted);text-align:center;border-bottom:1px solid var(--g-border);padding-bottom:.5rem;margin-bottom:1rem;font-weight:600;outline:none;min-height:20px}
+.page-header:empty::before{content:'Header…';color:#ccc;pointer-events:none}
+.page-footer-el{font-size:.72rem;color:var(--g-muted);text-align:center;border-top:1px solid var(--g-border);padding-top:.5rem;margin-top:1rem;font-weight:600;outline:none;min-height:20px}
+.page-footer-el:empty::before{content:'Footer…';color:#ccc;pointer-events:none}
+#ab{background:linear-gradient(135deg,var(--grade-primary),var(--g-accent));color:#fff;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:1.2rem;display:none;animation:sd .3s ease}
+@keyframes sd{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+#ab .abl{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:.2rem}
+#ab .abt{font-size:.95rem;font-weight:800;margin-bottom:.15rem}
+#ab .abp{font-size:.8rem;opacity:.88;line-height:1.5}
+#ab .abm{font-size:.68rem;opacity:.6;margin-top:.4rem;display:flex;gap:1rem}
+.ghbar{display:flex;align-items:center;gap:.4rem;margin-bottom:.8rem;flex-wrap:wrap}
+.ghbadge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:800;background:var(--g-badge);color:var(--g-badge-text)}
+.tch{font-size:.68rem;color:var(--g-muted);background:#f1f3f4;border-radius:20px;padding:3px 9px;font-weight:600}
+#prow{display:flex;gap:4px;margin-bottom:.6rem;flex-wrap:wrap;align-items:center}
+body.high #prow{display:none}
+.pc{padding:3px 10px;border-radius:20px;background:#f1f3f4;color:var(--g-muted);border:1px solid var(--g-border);font-size:.68rem;font-weight:700;cursor:pointer;transition:all .15s}
+.pc:hover{background:var(--grade-primary);color:#fff;border-color:var(--grade-primary)}
+.czone{width:100%;height:160px;border:2px dashed var(--g-border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;margin-bottom:1.2rem;background:#fafafa;transition:all .2s;overflow:hidden;position:relative}
+.czone:hover{border-color:var(--grade-primary);background:#f8f8ff}
+.czone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:9px}
+.czl{font-size:.74rem;color:var(--g-muted);pointer-events:none;font-weight:700}
+.atitle{font-family:var(--font-body);font-size:var(--g-etitle);font-weight:700;border:none;outline:none;width:100%;background:transparent;color:var(--g-text);border-bottom:2px solid var(--g-border);padding-bottom:.35rem;margin-bottom:.6rem;transition:border-color .2s,font-size .4s}
+.atitle:focus{border-color:var(--grade-primary)}
+.atitle::placeholder{color:#dadce0}
+.mrow{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem}
+.mi{border:1px solid var(--g-border);border-radius:6px;padding:5px 10px;font-size:.74rem;background:#f8f9fa;outline:none;color:var(--g-text);transition:border-color .2s}
+.mi:focus{border-color:#1a73e8;background:#fff}
+.abody{min-height:400px;outline:none;font-family:var(--font-body);font-size:var(--g-efont);line-height:var(--g-elh);color:var(--g-text);transition:font-size .3s,line-height .3s}
+.abody:empty::before{content:attr(data-ph);color:#dadce0;pointer-events:none}
+.abody h1{font-family:var(--font-body);font-size:1.8rem;margin:1rem 0 .4rem}
+.abody h2{font-family:var(--font-body);font-size:1.35rem;margin:.75rem 0 .3rem;border-bottom:1px solid var(--g-border);padding-bottom:.25rem}
+.abody h3{font-size:1.05rem;font-weight:700;margin:.6rem 0 .25rem}
+.abody blockquote{border-left:4px solid var(--grade-primary);padding:.45rem .9rem;background:#fafafa;border-radius:0 6px 6px 0;margin:.75rem 0;font-style:italic;color:var(--g-muted)}
+.abody a{color:#1a73e8;text-decoration:underline}
+.abody img{max-width:100%;border-radius:8px;margin:.4rem 0}
+.abody figure{margin:.8rem 0}
+.abody figcaption{font-size:.73rem;color:var(--g-muted);text-align:center;font-style:italic;margin-top:3px}
+.abody .ve{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin:.7rem 0}
+.abody .ve iframe{width:100%;height:100%;border:none}
+.abody hr{border:none;border-top:2px solid var(--g-border);margin:.9rem 0}
+.abody ul,.abody ol{margin:.4rem 0 .4rem 1.4rem}
+.abody li{margin-bottom:.25rem}
+.abody table{width:100%;border-collapse:collapse;margin:.7rem 0}
+.abody td,.abody th{border:1px solid var(--g-border);padding:7px 9px}
+.abody th{background:#f8f9fa;font-weight:700}
+#gbar{height:6px;background:var(--g-border);border-radius:3px;margin-top:.7rem;overflow:hidden;display:none}
+#gfill{height:100%;background:var(--grade-primary);border-radius:3px;transition:width .4s,background .4s}
+#glbl{font-size:.68rem;color:var(--g-muted);margin-top:3px;font-weight:700;display:none}
+
+/* Inline comment highlight */
+.inline-comment{background:#fff9c4;border-bottom:2px solid #f9a825;cursor:pointer;border-radius:2px}
+.inline-comment:hover{background:#fff3b0}
+
+/* Suggestion mode */
+body.suggest-mode .abody ins{background:#e6f4ea;color:#137333;text-decoration:none;border-bottom:1px solid #137333}
+body.suggest-mode .abody del{background:#fce8e6;color:#c5221f;text-decoration:line-through}
+
+/* Page break */
+.pg-break{page-break-after:always;border-top:2px dashed var(--g-border);margin:1.5rem 0;text-align:center}
+.pg-break span{font-size:.62rem;color:var(--g-muted);font-weight:700;background:#fff;padding:0 .5rem;position:relative;top:-1px}
+
+/* ── WORD COUNT BAR ── */
+#wcbar{background:#fff;border-top:1px solid var(--g-border);height:26px;padding:0 1rem;display:flex;align-items:center;gap:1.2rem;font-size:.7rem;color:var(--g-muted);position:sticky;bottom:0;z-index:200;font-weight:600}
+#wcbar span b{color:var(--g-text)}
+
+/* ── RIGHT PANEL ── */
+.rp{background:#fff;border-left:1px solid var(--g-border);overflow-y:auto;padding:.7rem;display:flex;flex-direction:column;gap:0}
+.rp-tabs{display:flex;border-bottom:1px solid var(--g-border);margin-bottom:.5rem}
+.rp-tab{flex:1;padding:7px 4px;font-size:.68rem;font-weight:700;text-align:center;cursor:pointer;color:var(--g-muted);border-bottom:2px solid transparent;transition:all .15s}
+.rp-tab.on{color:var(--grade-primary);border-bottom-color:var(--grade-primary)}
+.rp-pane{display:none}
+.rp-pane.on{display:block}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:.5rem}
+.sc{background:#f8f9fa;border:1px solid var(--g-border);border-radius:8px;padding:7px;text-align:center}
+.sn{font-family:var(--font-mono);font-size:1rem;font-weight:700;color:var(--grade-primary)}
+.sl{font-size:.58rem;color:var(--g-muted);font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+#sdis{background:linear-gradient(135deg,var(--grade-primary),var(--g-accent));color:#fff;border-radius:10px;padding:9px;text-align:center;margin-bottom:.6rem;display:none}
+#sdis .sv{font-family:var(--font-mono);font-size:1.4rem;font-weight:700}
+#sdis .sl2{font-size:.65rem;opacity:.72;font-weight:800;text-transform:uppercase}
+.rlist{display:flex;flex-direction:column;gap:3px;margin-bottom:.6rem}
+.ri{display:flex;align-items:flex-start;gap:6px;padding:6px 7px;background:#f8f9fa;border:1px solid var(--g-border);border-radius:8px;cursor:pointer;transition:all .12s}
+.ri:hover{border-color:var(--grade-primary)}
+.ri.dn{background:#f0fdf4;border-color:#10b981}
+.rck{width:15px;height:15px;border-radius:4px;border:2px solid var(--g-border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:.63rem;transition:all .12s}
+.ri.dn .rck{background:#10b981;border-color:#10b981;color:#fff}
+.rt2{font-size:.7rem;line-height:1.3;font-weight:700}
+.rp2{font-size:.61rem;color:var(--g-muted);margin-top:1px}
+.to{border:2px solid var(--grade-primary);border-radius:8px;padding:7px;margin-bottom:.5rem;background:#fafafa;display:none}
+body.teacher .to{display:block}
+.tolbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--grade-primary);margin-bottom:4px;display:flex;align-items:center;gap:3px}
+.tai{width:100%;padding:5px 7px;border:1px solid var(--g-border);border-radius:6px;font-size:.73rem;outline:none;margin-bottom:4px;background:#fff;color:var(--g-text);transition:border-color .2s}
+.tai:focus{border-color:#1a73e8}
+.lzone{width:100%;height:50px;border:2px dashed var(--g-border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--g-muted);cursor:pointer;transition:all .2s;overflow:hidden;position:relative;margin-bottom:.4rem;background:#fafafa;font-weight:700}
+.lzone:hover{border-color:var(--g-accent);color:var(--g-accent)}
+.lzone img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6px}
+.pcard{border:1px solid var(--g-border);border-radius:8px;padding:8px;cursor:pointer;margin-bottom:4px;background:#fafafa;display:flex;gap:7px;align-items:flex-start;transition:all .15s}
+.pcard:hover,.pcard.sel{border-color:var(--grade-primary);background:#f0f7ff}
+.pcard .pi2{font-size:1.1rem;flex-shrink:0}
+.pcard .pt2{font-size:.72rem;font-weight:800}
+.pcard .pd2{font-size:.62rem;color:var(--g-muted);line-height:1.3}
+.acbtn{width:100%;padding:7px;border-radius:7px;border:none;font-size:.76rem;font-weight:800;margin-bottom:3px;transition:all .2s;cursor:pointer}
+.acbtn.pri{background:var(--grade-primary);color:#fff}
+.acbtn.pri:hover{opacity:.87}
+.acbtn.sec{background:#f8f9fa;color:var(--g-text);border:1px solid var(--g-border)}
+.acbtn.sec:hover{background:var(--g-text);color:#fff}
+.acbtn.dng{background:#fff;color:#d93025;border:1px solid #fecaca}
+.acbtn.dng:hover{background:#d93025;color:#fff}
+.acbtn.wiki-btn{background:#1a73e8;color:#fff}
+.acbtn.wiki-btn:hover{opacity:.88}
+/* Comments thread */
+.comment-thread{background:#fafafa;border:1px solid var(--g-border);border-radius:8px;padding:.6rem;margin-bottom:.4rem}
+.ct-header{font-size:.7rem;font-weight:800;color:var(--g-text);display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem}
+.ct-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;color:#fff}
+.ct-text{font-size:.74rem;line-height:1.5;color:var(--g-text)}
+.ct-date{font-size:.62rem;color:var(--g-muted)}
+.ct-reply{font-size:.68rem;color:#1a73e8;cursor:pointer;font-weight:700;margin-top:.2rem}
+.ct-reply:hover{text-decoration:underline}
+/* Version list */
+.ver-list{display:flex;flex-direction:column;gap:3px;max-height:130px;overflow-y:auto;margin-bottom:.4rem}
+.ver-item{display:flex;align-items:center;justify-content:space-between;padding:5px 7px;background:#f8f9fa;border:1px solid var(--g-border);border-radius:6px;font-size:.68rem}
+.ver-label{font-weight:700;color:var(--g-text)}
+.ver-time{color:var(--g-muted);font-size:.61rem}
+.ver-restore{background:var(--grade-primary);color:#fff;border:none;border-radius:4px;padding:2px 7px;font-size:.62rem;font-weight:800;cursor:pointer}
+
+/* ── MODALS ── */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .22s}
+.ov.open{opacity:1;pointer-events:all}
+.mb{background:#fff;border-radius:12px;padding:1.4rem;width:420px;max-width:92vw;box-shadow:0 20px 50px rgba(0,0,0,.2);transform:translateY(16px);transition:transform .22s}
+.ov.open .mb{transform:translateY(0)}
+.mt{font-size:1rem;font-weight:800;margin-bottom:.8rem;display:flex;align-items:center;gap:5px;color:var(--g-text)}
+.mi2{width:100%;padding:8px 10px;border:1px solid var(--g-border);border-radius:7px;font-size:.84rem;outline:none;margin-bottom:7px;font-family:var(--font-ui);background:#f8f9fa;transition:border-color .2s;color:var(--g-text)}
+.mi2:focus{border-color:#1a73e8;background:#fff}
+.mac{display:flex;gap:7px;justify-content:flex-end;margin-top:.5rem}
+.mcl{padding:7px 14px;background:#f1f3f4;border:none;border-radius:7px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--font-ui);color:var(--g-text)}
+.mcl:hover{background:#e8eaed}
+.mok{padding:7px 16px;background:#1a73e8;color:#fff;border:none;border-radius:7px;font-size:.78rem;font-weight:800;cursor:pointer;font-family:var(--font-ui)}
+.mok:hover{background:#1557b0}
+.mok.gr{background:#188038}
+.mok.or{background:#e37400}
+#eg{display:flex;flex-wrap:wrap;gap:7px;max-height:175px;overflow-y:auto;font-size:1.4rem;margin-bottom:10px}
+#eg span{cursor:pointer;transition:transform .1s}
+#eg span:hover{transform:scale(1.3)}
+.excode{background:#1e1e2e;color:#a6e3a1;border-radius:8px;padding:.9rem;font-family:var(--font-mono);font-size:.65rem;line-height:1.6;max-height:220px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;margin-bottom:.8rem}
+
+/* Wiki publish */
+.wiki-preview{border:1.5px solid #1a73e8;border-radius:10px;overflow:hidden;margin-bottom:.9rem}
+.wiki-header-bar{background:#1a73e8;color:#fff;padding:.5rem .9rem;font-size:.76rem;font-weight:800;display:flex;align-items:center;gap:.4rem}
+.wiki-body-prev{background:#fff;padding:.9rem;font-size:.78rem;line-height:1.6;max-height:170px;overflow-y:auto;color:var(--g-text)}
+
+/* ── PREVIEW ── */
+#prev{position:fixed;inset:0;background:var(--g-bg);z-index:700;overflow-y:auto;display:none}
+#prev.open{display:block}
+.pvbar{position:sticky;top:0;background:#1e1e2e;color:#fff;padding:.6rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--grade-primary)}
+.pvbar h3{font-size:.74rem;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.pvclose{padding:5px 13px;background:var(--grade-primary);color:#fff;border:none;border-radius:6px;font-weight:800;font-size:.74rem;cursor:pointer;font-family:var(--font-ui)}
+.pvwrap{max-width:740px;margin:3rem auto;padding:0 2rem}
+.pvtitle{font-family:var(--font-body);font-size:2.2rem;font-weight:700;margin-bottom:.4rem;line-height:1.2;color:var(--g-text)}
+.pvmeta{color:var(--g-muted);font-size:.8rem;margin-bottom:1.4rem;padding-bottom:.7rem;border-bottom:1px solid var(--g-border)}
+.pvcov{width:100%;border-radius:12px;margin-bottom:1.8rem;max-height:360px;object-fit:cover}
+.pvbody{font-family:var(--font-body);font-size:1rem;line-height:1.82;color:var(--g-text)}
+.pvbody h1{font-family:var(--font-body);font-size:1.8rem;margin:1rem 0 .35rem}
+.pvbody h2{font-family:var(--font-body);font-size:1.3rem;margin:.75rem 0 .3rem;border-bottom:1px solid var(--g-border);padding-bottom:.25rem}
+.pvbody blockquote{border-left:4px solid var(--grade-primary);padding:.5rem .9rem;background:#fafafa;border-radius:0 7px 7px 0;font-style:italic;margin:.8rem 0}
+.pvbody a{color:#1a73e8}
+.pvbody img{max-width:100%;border-radius:8px}
+.pvbody figcaption{font-size:.74rem;color:var(--g-muted);text-align:center;font-style:italic;margin-top:4px}
+.pvbody .ve{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin:.8rem 0}
+.pvbody .ve iframe{width:100%;height:100%;border:none}
+.pvbody table{width:100%;border-collapse:collapse;margin:.7rem 0}
+.pvbody td,.pvbody th{border:1px solid var(--g-border);padding:7px 9px}
+.pvbody th{background:#f8f9fa;font-weight:700}
+
+/* ── WIKI LIBRARY ── */
+#wikiLib{position:fixed;inset:0;background:var(--g-bg);z-index:800;overflow-y:auto;display:none}
+#wikiLib.open{display:block}
+.wl-bar{position:sticky;top:0;background:#1e1e2e;color:#fff;padding:.75rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #1a73e8}
+.wl-title{font-size:.95rem;font-weight:900;display:flex;align-items:center;gap:.5rem}
+.wl-searchrow{display:flex;gap:.5rem;align-items:center}
+.wl-search{padding:6px 13px;border-radius:30px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font-size:.78rem;outline:none;width:210px}
+.wl-search::placeholder{color:rgba(255,255,255,.4)}
+.wl-close{padding:5px 13px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-weight:800;font-size:.74rem;cursor:pointer;font-family:var(--font-ui)}
+.wl-content{max-width:1100px;margin:1.8rem auto;padding:0 2rem}
+.wl-cats{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.wl-cat{padding:4px 13px;border-radius:20px;background:#fff;border:1.5px solid var(--g-border);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--g-muted)}
+.wl-cat:hover,.wl-cat.on{background:#1a73e8;color:#fff;border-color:#1a73e8}
+.wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1.1rem}
+.wl-card{background:#fff;border:1px solid var(--g-border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .18s;display:flex;flex-direction:column}
+.wl-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.1);border-color:#1a73e8}
+.wl-card-img{width:100%;height:120px;background:#f1f3f4;display:flex;align-items:center;justify-content:center;font-size:2.3rem;overflow:hidden}
+.wl-card-img img{width:100%;height:100%;object-fit:cover}
+.wl-card-body{padding:.75rem .9rem;flex:1}
+.wl-card-title{font-weight:800;font-size:.85rem;margin-bottom:.25rem;line-height:1.3;color:var(--g-text)}
+.wl-card-meta{font-size:.66rem;color:var(--g-muted);margin-bottom:.35rem}
+.wl-card-preview{font-size:.71rem;color:var(--g-text);line-height:1.5;opacity:.78;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.wl-card-tags{display:flex;gap:.25rem;flex-wrap:wrap;padding:.4rem .9rem .65rem}
+.wl-card-tag{font-size:.6rem;background:var(--g-badge);color:var(--g-badge-text);border-radius:8px;padding:2px 7px;font-weight:700}
+.wl-empty{text-align:center;padding:3rem;color:var(--g-muted);font-size:.88rem}
+
+/* ── WIKI ARTICLE ── */
+#wikiArticle{position:fixed;inset:0;background:#fff;z-index:850;overflow-y:auto;display:none}
+#wikiArticle.open{display:block}
+.wa-bar{position:sticky;top:0;background:#1a73e8;color:#fff;padding:.65rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.wa-actions{display:flex;gap:.4rem}
+.wa-btn{padding:5px 12px;border:none;border-radius:6px;font-size:.72rem;font-weight:800;cursor:pointer;font-family:var(--font-ui)}
+.wa-content{max-width:760px;margin:2.5rem auto;padding:0 2rem 3rem}
+.wa-cover{width:100%;max-height:320px;object-fit:cover;border-radius:12px;margin-bottom:1.4rem;display:none}
+.wa-title{font-family:var(--font-body);font-size:2.2rem;font-weight:700;margin-bottom:.35rem;line-height:1.2}
+.wa-meta{color:var(--g-muted);font-size:.78rem;margin-bottom:1.4rem;border-bottom:1px solid var(--g-border);padding-bottom:.7rem}
+.wa-body{font-family:var(--font-body);font-size:1rem;line-height:1.85;color:var(--g-text)}
+.wa-body h1{font-size:1.75rem;margin:1rem 0 .35rem}
+.wa-body h2{font-size:1.3rem;margin:.75rem 0 .3rem;border-bottom:1px solid var(--g-border);padding-bottom:.25rem}
+.wa-body h3{font-size:1.05rem;font-weight:700;margin:.55rem 0 .25rem}
+.wa-body blockquote{border-left:4px solid #1a73e8;padding:.45rem .9rem;background:#e8f0fe;border-radius:0 7px 7px 0;margin:.8rem 0;font-style:italic}
+.wa-body a{color:#1a73e8}
+.wa-body img{max-width:100%;border-radius:8px}
+.wa-body table{width:100%;border-collapse:collapse;margin:.7rem 0}
+.wa-body td,.wa-body th{border:1px solid var(--g-border);padding:7px 9px}
+.wa-body th{background:#f8f9fa;font-weight:700}
+.wa-body ul,.wa-body ol{margin:.4rem 0 .4rem 1.4rem}
+.wa-body .ve{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin:.8rem 0}
+.wa-body .ve iframe{width:100%;height:100%;border:none}
+.wa-comments{max-width:760px;margin:0 auto;padding:0 2rem 3rem;border-top:1.5px solid var(--g-border)}
+.wa-comm-title{font-size:.95rem;font-weight:800;margin:1rem 0 .7rem}
+.comment{background:#f8f9fa;border:1px solid var(--g-border);border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem}
+.comm-author{font-size:.73rem;font-weight:800;margin-bottom:.25rem;display:flex;align-items:center;gap:.4rem}
+.comm-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0}
+.comm-text{font-size:.8rem;color:var(--g-text);line-height:1.5}
+.comm-date{font-size:.62rem;color:var(--g-muted);margin-top:.25rem}
+.comm-input-area{margin-top:.9rem}
+.comm-input{width:100%;padding:8px 11px;border:1px solid var(--g-border);border-radius:8px;font-size:.8rem;font-family:var(--font-ui);resize:vertical;outline:none;min-height:65px;background:#f8f9fa}
+.comm-input:focus{border-color:#1a73e8;background:#fff}
+.comm-submit{margin-top:.35rem;padding:6px 16px;background:#1a73e8;color:#fff;border:none;border-radius:7px;font-size:.76rem;font-weight:800;cursor:pointer;font-family:var(--font-ui)}
+
+/* Thesaurus */
+.thes-results{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem}
+.thes-word{background:#f1f3f4;border:1px solid var(--g-border);border-radius:6px;padding:3px 9px;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .12s;color:var(--g-text)}
+.thes-word:hover{background:#1a73e8;color:#fff;border-color:#1a73e8}
+
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(60px);background:#3c4043;color:#fff;border-radius:30px;padding:.55rem 1.3rem;font-size:.78rem;font-weight:700;z-index:2000;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* FOOTER */
+footer.mf{text-align:center;padding:1.1rem 2rem;background:#1e1e2e;color:rgba(255,255,255,.35);font-size:.67rem;letter-spacing:.8px;border-top:3px solid var(--grade-primary);font-family:var(--font-mono)}
+footer.mf strong{color:var(--grade-primary)}
+
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--g-border);border-radius:3px}
+@media print{#gdtb,#menubar,header,.lp,.rp,#wcbar,footer.mf{display:none!important}.app{display:block}.ew{overflow:visible;padding:0}.doc-page{box-shadow:none;min-height:unset;margin:0}}
+</style>
+</head>
+<body class="elem">
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-logo"><div class="ic">✍️</div>Article<span class="acc">Craft</span> <span style="font-size:.9rem;font-weight:600;opacity:.5">Pro</span></div>
+  <div class="sp-tagline">📄 Now with a full Google Docs-style toolbar, document outline, comments, page view & more</div>
+  <div class="sp-sub">The article writing tool built for classrooms — choose your role to get started</div>
+  <div class="sp-cards">
+    <div class="rc" onclick="enterAs('teacher')"><div class="ri">👩‍🏫</div><div class="rt">Teacher</div><div class="rd">Set assignments, rubrics, word goals &amp; manage students</div></div>
+    <div class="rc" onclick="enterAs('student')"><div class="ri">🎒</div><div class="rt">Student</div><div class="rd">Write with guided tools, live checklist &amp; progress tracking</div></div>
+    <div class="rc" onclick="enterAs('free')"><div class="ri">✏️</div><div class="rt">Free Write</div><div class="rd">Open editor — no assignment, just write</div></div>
+  </div>
+  <div class="sp-feats">
+    <span class="sp-feat">📄 Page View</span><span class="sp-feat">🔤 Font Picker</span><span class="sp-feat">📐 Line Spacing</span>
+    <span class="sp-feat">↩ Undo/Redo</span><span class="sp-feat">💬 Comments</span><span class="sp-feat">📋 Document Outline</span>
+    <span class="sp-feat">🖨 Print</span><span class="sp-feat">🌐 Wiki Library</span><span class="sp-feat">📖 Thesaurus</span>
+    <span class="sp-feat">🔍 Find & Replace</span><span class="sp-feat">🕓 Version History</span><span class="sp-feat">🌍 Translate</span>
+  </div>
+</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="hl"><div class="hic">✍</div>Article<span class="acc">Craft</span>&nbsp;<span style="font-size:.65rem;opacity:.45;font-weight:600">Pro</span></div>
+  <div class="hdr-mid">
+    <div class="gp">
+      <button class="gb on" onclick="setGrade('elem',this)">Elementary</button>
+      <button class="gb" onclick="setGrade('mid',this)">Middle</button>
+      <button class="gb" onclick="setGrade('high',this)">High School</button>
+    </div>
+    <span class="rbadge" id="rbadge">✏️ Free Write</span>
+  </div>
+  <div class="hdr-r">
+    <button class="hb gh" onclick="toggleFocus()" title="Focus Mode (F)">🎯</button>
+    <button class="hb gh wiki-hb" onclick="openWikiLib()">🌐 Wiki</button>
+    <button class="hb gh" onclick="openPrev()">👁 Preview</button>
+    <button class="hb pri" onclick="doExport()">Publish ▶</button>
+  </div>
+</header>
+
+<!-- ── MENU BAR ── -->
+<div id="menubar">
+  <div class="menu-item">File
+    <div class="menu-drop">
+      <div class="md-item" onclick="dlHtml()">Download .html <span class="kshort"></span></div>
+      <div class="md-item" onclick="dlMd()">Download .md <span class="kshort"></span></div>
+      <div class="md-sep"></div>
+      <div class="md-item" onclick="printArticle()">Print <span class="kshort">Ctrl+P</span></div>
+      <div class="md-sep"></div>
+      <div class="md-item" onclick="clearAll()" style="color:#d93025">Clear All</div>
+    </div>
+  </div>
+  <div class="menu-item">Edit
+    <div class="menu-drop">
+      <div class="md-item" onclick="document.execCommand('undo')">Undo <span class="kshort">Ctrl+Z</span></div>
+      <div class="md-item" onclick="document.execCommand('redo')">Redo <span class="kshort">Ctrl+Y</span></div>
+      <div class="md-sep"></div>
+      <div class="md-item" onclick="openM('findreplace')">Find &amp; Replace <span class="kshort">Ctrl+H</span></div>
+      <div class="md-item" onclick="document.execCommand('selectAll')">Select All <span class="kshort">Ctrl+A</span></div>
+    </div>
+  </div>
+  <div class="menu-item">View
+    <div class="menu-drop">
+      <div class="md-item" onclick="togglePageView()">Toggle Page View</div>
+      <div class="md-item" onclick="toggleFocus()">Focus Mode <span class="kshort">F</span></div>
+      <div class="md-item" onclick="refreshOutline()">Refresh Outline</div>
+    </div>
+  </div>
+  <div class="menu-item">Insert
+    <div class="menu-drop">
+      <div class="md-item" onclick="openM('image')">Image</div>
+      <div class="md-item" onclick="openM('link')">Link <span class="kshort">Ctrl+K</span></div>
+      <div class="md-item" onclick="openM('tbl')">Table</div>
+      <div class="md-item" onclick="openM('vid')">Video</div>
+      <div class="md-item" onclick="openM('emoji')">Emoji</div>
+      <div class="md-item" onclick="openM('footnote')">Footnote</div>
+      <div class="md-item" onclick="insDate()">Date</div>
+      <div class="md-item" onclick="insPageBreak()">Page Break</div>
+      <div class="md-item" onclick="insHR()">Horizontal Line</div>
+    </div>
+  </div>
+  <div class="menu-item">Format
+    <div class="menu-drop">
+      <div class="md-item" onclick="fmt('bold')">Bold <span class="kshort">Ctrl+B</span></div>
+      <div class="md-item" onclick="fmt('italic')">Italic <span class="kshort">Ctrl+I</span></div>
+      <div class="md-item" onclick="fmt('underline')">Underline <span class="kshort">Ctrl+U</span></div>
+      <div class="md-item" onclick="fmt('strikeThrough')">Strikethrough</div>
+      <div class="md-sep"></div>
+      <div class="md-item" onclick="fmt('removeFormat')">Clear formatting</div>
+    </div>
+  </div>
+  <div class="menu-item">Tools
+    <div class="menu-drop">
+      <div class="md-item" onclick="openM('thesaurus')">Thesaurus</div>
+      <div class="md-item" onclick="openM('tts')">Read Aloud</div>
+      <div class="md-item" onclick="openM('translate')">Translate</div>
+      <div class="md-item" onclick="openM('outline')">Outline Generator</div>
+      <div class="md-item" onclick="saveVersion()">Save Version</div>
+    </div>
+  </div>
+  <div class="menu-item">Help
+    <div class="menu-drop">
+      <div class="md-item" onclick="toast('ArticleCraft Pro v4.0 — by TalonA14Studios 🎓')">About</div>
+      <div class="md-item" onclick="showShortcuts()">Keyboard Shortcuts</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── GOOGLE DOCS TOOLBAR ── -->
+<div id="gdtb">
+  <!-- Undo / Redo -->
+  <button class="tb-btn" title="Undo (Ctrl+Z)" onclick="document.execCommand('undo')">↩</button>
+  <button class="tb-btn" title="Redo (Ctrl+Y)" onclick="document.execCommand('redo')">↪</button>
+  <div class="tb-sep"></div>
+  <!-- Zoom -->
+  <select class="tb-select" id="zoomSel" onchange="setZoom(this.value)" title="Zoom" style="width:70px">
+    <option value="75">75%</option><option value="90">90%</option><option value="100" selected>100%</option>
+    <option value="110">110%</option><option value="125">125%</option><option value="150">150%</option>
+  </select>
+  <div class="tb-sep"></div>
+  <!-- Style / Paragraph format -->
+  <select class="tb-select" id="styleSel" onchange="applyStyle(this.value)" title="Paragraph style" style="width:120px">
+    <option value="p">Normal text</option>
+    <option value="h1">Heading 1</option>
+    <option value="h2">Heading 2</option>
+    <option value="h3">Heading 3</option>
+    <option value="blockquote">Quote</option>
+  </select>
+  <div class="tb-sep"></div>
+  <!-- Font family -->
+  <select class="tb-select" id="fontSel" onchange="applyFont(this.value)" title="Font" style="width:130px">
+    <option value="'Lora',serif">Lora (Default)</option>
+    <option value="'Nunito',sans-serif">Nunito</option>
+    <option value="'Georgia',serif">Georgia</option>
+    <option value="'Times New Roman',serif">Times New Roman</option>
+    <option value="'Arial',sans-serif">Arial</option>
+    <option value="'Courier New',monospace">Courier New</option>
+    <option value="'Trebuchet MS',sans-serif">Trebuchet MS</option>
+    <option value="'Palatino',serif">Palatino</option>
+  </select>
+  <!-- Font size -->
+  <select class="tb-select" id="fszSel" onchange="applyFontSize(this.value)" title="Font size" style="width:58px">
+    <option value="1">8</option><option value="2">10</option><option value="3" selected>12</option>
+    <option value="4">14</option><option value="5">18</option><option value="6">24</option><option value="7">36</option>
+  </select>
+  <div class="tb-sep"></div>
+  <!-- Basic formatting -->
+  <button class="tb-btn" id="tb-bold" title="Bold (Ctrl+B)" onclick="fmt('bold');toggleActive('tb-bold')"><b>B</b></button>
+  <button class="tb-btn" id="tb-italic" title="Italic (Ctrl+I)" onclick="fmt('italic');toggleActive('tb-italic')"><i>I</i></button>
+  <button class="tb-btn" id="tb-underline" title="Underline (Ctrl+U)" onclick="fmt('underline');toggleActive('tb-underline')"><u>U</u></button>
+  <button class="tb-btn" id="tb-strike" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
+  <div class="tb-sep"></div>
+  <!-- Text color -->
+  <div class="tb-color-wrap" title="Text color" onclick="openColorPicker('fore')">
+    <span style="font-size:.8rem;font-weight:800;color:var(--g-text)">A</span>
+    <div class="tb-color-bar" id="fore-bar" style="background:#000"></div>
+  </div>
+  <!-- Highlight -->
+  <div class="tb-color-wrap" title="Highlight color" onclick="openColorPicker('hi')" style="margin-left:4px">
+    <span style="font-size:.8rem;font-weight:800;background:#fef08a;padding:0 2px">A</span>
+    <div class="tb-color-bar" id="hi-bar" style="background:#fef08a"></div>
+  </div>
+  <div class="tb-sep"></div>
+  <!-- Link -->
+  <button class="tb-btn" title="Insert link (Ctrl+K)" onclick="openM('link')">🔗</button>
+  <!-- Comment -->
+  <button class="tb-btn" title="Add comment" onclick="addInlineComment()">💬</button>
+  <div class="tb-sep"></div>
+  <!-- Lists -->
+  <button class="tb-btn" title="Bullet list" onclick="fmt('insertUnorderedList')">≡•</button>
+  <button class="tb-btn" title="Numbered list" onclick="fmt('insertOrderedList')">≡1</button>
+  <button class="tb-btn" title="Checklist" onclick="insChecklist()">☑</button>
+  <div class="tb-sep"></div>
+  <!-- Indent -->
+  <button class="tb-btn" title="Decrease indent" onclick="fmt('outdent')">⇤</button>
+  <button class="tb-btn" title="Increase indent" onclick="fmt('indent')">⇥</button>
+  <div class="tb-sep"></div>
+  <!-- Align -->
+  <button class="tb-btn" title="Align left" onclick="fmt('justifyLeft')">◧</button>
+  <button class="tb-btn" title="Align center" onclick="fmt('justifyCenter')">▣</button>
+  <button class="tb-btn" title="Align right" onclick="fmt('justifyRight')">◨</button>
+  <button class="tb-btn" title="Justify" onclick="fmt('justifyFull')">▤</button>
+  <div class="tb-sep"></div>
+  <!-- Line spacing -->
+  <select class="tb-select" id="lspaceSel" onchange="setLineSpacing(this.value)" title="Line spacing" style="width:80px">
+    <option value="1.4">Single</option><option value="1.6">1.15</option>
+    <option value="1.8" selected>1.5</option><option value="2.1">Double</option>
+  </select>
+  <div class="tb-sep"></div>
+  <!-- Clear format -->
+  <button class="tb-btn" title="Clear formatting" onclick="fmt('removeFormat')">T✕</button>
+  <!-- Superscript / Subscript -->
+  <button class="tb-btn" title="Superscript" onclick="fmt('superscript')">x²</button>
+  <button class="tb-btn" title="Subscript" onclick="fmt('subscript')">x₂</button>
+  <!-- Suggest mode toggle -->
+  <div class="tb-sep"></div>
+  <button class="tb-btn" id="tb-suggest" title="Suggesting mode (track changes)" onclick="toggleSuggest()" style="font-size:.68rem;font-weight:800">✏️ Edit</button>
+</div>
+
+<!-- ── APP ── -->
+<div class="app">
+
+<!-- LEFT: Document Outline + Insert -->
+<aside class="lp">
+  <div class="lp-tabs">
+    <div class="lp-tab on" onclick="switchLpTab('outline',this)">Outline</div>
+    <div class="lp-tab" onclick="switchLpTab('insert',this)">Insert</div>
+    <div class="lp-tab" onclick="switchLpTab('styles',this)">Styles</div>
+    <div class="lp-tab" onclick="switchLpTab('stickers',this)">Fun ⭐</div>
+  </div>
+  <!-- Outline pane -->
+  <div class="lp-pane on" id="lp-outline">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">
+      <div class="sh" style="border:0;margin:0">📋 Document Outline</div>
+      <button onclick="refreshOutline()" style="font-size:.65rem;background:none;border:none;color:var(--g-muted);cursor:pointer;font-weight:700">↻ Refresh</button>
+    </div>
+    <div id="outline-list"><div class="outline-empty">Add headings (H1, H2, H3) to your article to see them here.</div></div>
+  </div>
+  <!-- Insert pane -->
+  <div class="lp-pane" id="lp-insert">
+    <div class="sh">➕ Insert</div>
+    <button class="ins-btn" onclick="openM('image')"><span class="ii">🖼</span>Image / Photo</button>
+    <button class="ins-btn" onclick="openM('link')"><span class="ii">🔗</span>Hyperlink</button>
+    <button class="ins-btn" onclick="openM('tbl')"><span class="ii">📊</span>Table</button>
+    <button class="ins-btn" onclick="openM('vid')"><span class="ii">▶️</span>Embed Video</button>
+    <button class="ins-btn" onclick="openM('emoji')"><span class="ii">😊</span>Emoji</button>
+    <button class="ins-btn" onclick="openM('cap')"><span class="ii">📝</span>Caption</button>
+    <button class="ins-btn" onclick="openM('footnote')"><span class="ii">¹</span>Footnote</button>
+    <button class="ins-btn" onclick="insDate()"><span class="ii">📅</span>Current Date</button>
+    <button class="ins-btn" onclick="insPageBreak()"><span class="ii">📄</span>Page Break</button>
+    <button class="ins-btn" onclick="insHR()"><span class="ii">—</span>Horizontal Line</button>
+    <button class="ins-btn" onclick="insChecklist()"><span class="ii">☑</span>Checklist</button>
+    <div class="sh" style="margin-top:.6rem">🛠 Tools</div>
+    <button class="ins-btn" onclick="openM('thesaurus')"><span class="ii">📖</span>Thesaurus</button>
+    <button class="ins-btn" onclick="openM('findreplace')"><span class="ii">🔍</span>Find & Replace</button>
+    <button class="ins-btn" onclick="openM('tts')"><span class="ii">🔊</span>Read Aloud</button>
+    <button class="ins-btn" onclick="openM('translate')"><span class="ii">🌍</span>Translate</button>
+    <button class="ins-btn" onclick="openM('outline')"><span class="ii">📋</span>Outline Generator</button>
+  </div>
+  <!-- Styles pane -->
+  <div class="lp-pane" id="lp-styles">
+    <div class="sh">🎨 Paragraph Styles</div>
+    <button class="style-btn" onclick="fmt('formatBlock','p')" style="font-size:.85rem">Normal text</button>
+    <button class="style-btn" onclick="fmt('formatBlock','h1')" style="font-size:1.3rem;font-weight:900">Heading 1</button>
+    <button class="style-btn" onclick="fmt('formatBlock','h2')" style="font-size:1.1rem;font-weight:800">Heading 2</button>
+    <button class="style-btn" onclick="fmt('formatBlock','h3')" style="font-size:.95rem;font-weight:700">Heading 3</button>
+    <button class="style-btn" onclick="fmt('formatBlock','blockquote')" style="border-left:3px solid var(--grade-primary);font-style:italic;padding-left:8px">Quote</button>
+    <button class="style-btn" onclick="fmt('formatBlock','pre')" style="font-family:var(--font-mono);font-size:.78rem">Code block</button>
+    <div class="sh" style="margin-top:.6rem">🎨 Text Colors</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.5rem">
+      <div style="width:24px;height:24px;border-radius:50%;background:#202124;cursor:pointer;border:2px solid #dadce0" onclick="applyColor('#202124','fore')" title="Black"></div>
+      <div style="width:24px;height:24px;border-radius:50%;background:#d93025;cursor:pointer" onclick="applyColor('#d93025','fore')" title="Red"></div>
+      <div style="width:24px;height:24px;border-radius:50%;background:#1a73e8;cursor:pointer" onclick="applyColor('#1a73e8','fore')" title="Blue"></div>
+      <div style="width:24px;height:24px;border-radius:50%;background:#188038;cursor:pointer" onclick="applyColor('#188038','fore')" title="Green"></div>
+      <div style="width:24px;height:24px;border-radius:50%;background:#e37400;cursor:pointer" onclick="applyColor('#e37400','fore')" title="Orange"></div>
+      <div style="width:24px;height:24px;border-radius:50%;background:#7c3aed;cursor:pointer" onclick="applyColor('#7c3aed','fore')" title="Purple"></div>
+    </div>
+    <div class="sh">🖍 Highlights</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px">
+      <div style="width:28px;height:18px;border-radius:4px;background:#fef08a;cursor:pointer;border:1px solid #e0e0e0" onclick="applyColor('#fef08a','hi')" title="Yellow"></div>
+      <div style="width:28px;height:18px;border-radius:4px;background:#bbf7d0;cursor:pointer;border:1px solid #e0e0e0" onclick="applyColor('#bbf7d0','hi')" title="Green"></div>
+      <div style="width:28px;height:18px;border-radius:4px;background:#fecdd3;cursor:pointer;border:1px solid #e0e0e0" onclick="applyColor('#fecdd3','hi')" title="Pink"></div>
+      <div style="width:28px;height:18px;border-radius:4px;background:#bae6fd;cursor:pointer;border:1px solid #e0e0e0" onclick="applyColor('#bae6fd','hi')" title="Blue"></div>
+      <div style="width:28px;height:18px;border-radius:4px;background:#e9d5ff;cursor:pointer;border:1px solid #e0e0e0" onclick="applyColor('#e9d5ff','hi')" title="Purple"></div>
+      <div style="width:28px;height:18px;border-radius:4px;background:transparent;cursor:pointer;border:1.5px solid #e0e0e0" onclick="fmt('hiliteColor','transparent')" title="Remove highlight">✕</div>
+    </div>
+  </div>
+  <!-- Fun stickers pane -->
+  <div class="lp-pane strow-sec" id="lp-stickers">
+    <div class="sh">⭐ Fun Stickers</div>
+    <div class="strow">
+      <span class="st" onclick="insTxt('⭐')">⭐</span><span class="st" onclick="insTxt('🌟')">🌟</span>
+      <span class="st" onclick="insTxt('🎉')">🎉</span><span class="st" onclick="insTxt('🏆')">🏆</span>
+      <span class="st" onclick="insTxt('🔥')">🔥</span><span class="st" onclick="insTxt('💡')">💡</span>
+      <span class="st" onclick="insTxt('❤️')">❤️</span><span class="st" onclick="insTxt('🌈')">🌈</span>
+      <span class="st" onclick="insTxt('🎓')">🎓</span><span class="st" onclick="insTxt('📚')">📚</span>
+      <span class="st" onclick="insTxt('🚀')">🚀</span><span class="st" onclick="insTxt('🦋')">🦋</span>
+    </div>
+  </div>
+</aside>
+
+<!-- CENTER: Editor -->
+<main class="ew" id="ew">
+  <div class="doc-page" id="docPage">
+    <div class="page-header" id="pageHeader" contenteditable="true"></div>
+    <div id="ab"><div class="abl">📋 Assignment</div><div class="abt" id="abt">-</div><div class="abp" id="abp">-</div><div class="abm"><span id="abd"></span><span id="abg"></span></div></div>
+    <div class="ghbar">
+      <span class="ghbadge" id="ghb">📚 Elementary School</span>
+      <span class="tch" id="tch">Keep sentences short and fun! 🌟</span>
+    </div>
+    <div id="prow">
+      <span style="font-size:.66rem;font-weight:800;color:var(--g-muted)">Quick prompts:</span>
+      <span class="pc" onclick="setP(this)">My Favorite Place</span>
+      <span class="pc" onclick="setP(this)">An Amazing Discovery</span>
+      <span class="pc" onclick="setP(this)">A Day in My Life</span>
+      <span class="pc" onclick="setP(this)">Why I Love Science</span>
+      <span class="pc" onclick="setP(this)">Book Review</span>
+    </div>
+    <div class="czone" id="cz" onclick="document.getElementById('cf').click()">
+      <span style="font-size:1.8rem">📷</span>
+      <span class="czl">Click to add a cover photo</span>
+      <input type="file" id="cf" accept="image/*" style="display:none" onchange="loadCov(event)">
+    </div>
+    <input class="atitle" id="att" type="text" placeholder="Your article title goes here…">
+    <div class="mrow">
+      <input class="mi" id="auin" type="text" placeholder="Your name">
+      <input class="mi" id="adin" type="date">
+      <input class="mi" id="asin" type="text" placeholder="Subject / Class">
+      <input class="mi" id="atag" type="text" placeholder="Tags (comma-separated)">
+      <select class="mi" id="acategory">
+        <option value="">Category…</option>
+        <option>Science</option><option>History</option><option>Technology</option>
+        <option>Environment</option><option>Arts</option><option>Sports</option>
+        <option>Current Events</option><option>Opinion</option><option>Creative</option>
+      </select>
+    </div>
+    <div class="abody" id="bod" contenteditable="true" data-ph="Start writing your article here…"></div>
+    <div id="gbar"><div id="gfill" style="width:0%"></div></div>
+    <div id="glbl"></div>
+    <div class="page-footer-el" id="pageFooter" contenteditable="true"></div>
+  </div>
+</main>
+
+<!-- RIGHT: Stats, Checklist, Comments, Publish -->
+<aside class="rp">
+  <div class="rp-tabs">
+    <div class="rp-tab on" onclick="switchRpTab('stats',this)">Stats</div>
+    <div class="rp-tab" onclick="switchRpTab('checklist',this)">Check</div>
+    <div class="rp-tab" onclick="switchRpTab('comments',this)">Notes</div>
+    <div class="rp-tab" onclick="switchRpTab('publish',this)">Publish</div>
+  </div>
+
+  <!-- STATS TAB -->
+  <div class="rp-pane on" id="rp-stats">
+    <div class="sgrid">
+      <div class="sc"><div class="sn" id="wc">0</div><div class="sl">Words</div></div>
+      <div class="sc"><div class="sn" id="cc">0</div><div class="sl">Chars</div></div>
+      <div class="sc"><div class="sn" id="pc">0</div><div class="sl">Paras</div></div>
+      <div class="sc"><div class="sn" id="rt">0m</div><div class="sl">Read Time</div></div>
+      <div class="sc"><div class="sn" id="slvl" style="font-size:.8rem">—</div><div class="sl">Grade Lvl</div></div>
+      <div class="sc"><div class="sn" id="sent">0</div><div class="sl">Sentences</div></div>
+    </div>
+    <div id="sdis"><div class="sv" id="sv">0 / 0</div><div class="sl2">Rubric Score</div></div>
+    <div style="margin-top:.5rem">
+      <div class="sh" style="margin-bottom:.3rem">🕓 Version History</div>
+      <div class="ver-list" id="verList"><div style="font-size:.68rem;color:var(--g-muted);text-align:center;padding:.3rem">No versions saved yet</div></div>
+      <button class="acbtn sec" onclick="saveVersion()" style="font-size:.7rem;margin-top:3px">💾 Save Version</button>
+    </div>
+    <div style="margin-top:.5rem">
+      <div class="sh" style="margin-bottom:.3rem">🏫 School Logo</div>
+      <div class="lzone" id="lz" onclick="document.getElementById('lf').click()">+ Upload School Logo<input type="file" id="lf" accept="image/*" style="display:none" onchange="loadLogo(event)"></div>
+    </div>
+    <div style="margin-top:.4rem">
+      <div id="gbar2" style="height:5px;background:var(--g-border);border-radius:3px;overflow:hidden;display:none"><div id="gfill2" style="height:100%;background:var(--grade-primary);border-radius:3px;width:0%;transition:width .4s"></div></div>
+      <div id="glbl2" style="font-size:.66rem;color:var(--g-muted);margin-top:2px;font-weight:700;display:none"></div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST TAB -->
+  <div class="rp-pane" id="rp-checklist">
+    <div class="to" id="tsetup">
+      <div class="tolbl">👩‍🏫 Assignment Setup</div>
+      <input class="tai" id="tai1" placeholder="Assignment title">
+      <textarea class="tai" id="tai2" placeholder="Prompt / instructions…" rows="2" style="resize:vertical"></textarea>
+      <input class="tai" id="tai3" type="date">
+      <input class="tai" id="tai4" type="number" placeholder="Word goal (e.g. 150)">
+      <button class="acbtn pri" onclick="applyAssign()" style="margin-top:2px">✓ Apply</button>
+    </div>
+    <div class="rlist" id="rl"></div>
+  </div>
+
+  <!-- COMMENTS / NOTES TAB -->
+  <div class="rp-pane" id="rp-comments">
+    <div class="sh" style="margin-bottom:.4rem">💬 Document Notes</div>
+    <div id="comments-list"></div>
+    <div style="margin-top:.4rem">
+      <textarea id="note-input" style="width:100%;padding:7px 9px;border:1px solid var(--g-border);border-radius:7px;font-size:.76rem;font-family:var(--font-ui);resize:vertical;outline:none;min-height:55px;background:#f8f9fa" placeholder="Add a note or comment…"></textarea>
+      <div style="display:flex;gap:.4rem;margin-top:.3rem;align-items:center">
+        <input id="note-author" style="flex:1;padding:5px 8px;border:1px solid var(--g-border);border-radius:6px;font-size:.72rem;font-family:var(--font-ui);outline:none;background:#f8f9fa" placeholder="Name">
+        <button onclick="addNote()" style="padding:5px 12px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:.72rem;font-weight:800;cursor:pointer;font-family:var(--font-ui)">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLISH TAB -->
+  <div class="rp-pane" id="rp-publish">
+    <div class="pcard sel" id="pHtml" onclick="selPub('html')"><div class="pi2">💾</div><div><div class="pt2">Export HTML File</div><div class="pd2">Download and host anywhere</div></div></div>
+    <div class="pcard" id="pWiki" onclick="selPub('wiki')"><div class="pi2">🌐</div><div><div class="pt2">Publish to Wiki Library</div><div class="pd2">Share with your school community</div></div></div>
+    <div class="pcard" id="pMd" onclick="selPub('md')"><div class="pi2">📝</div><div><div class="pt2">Export Markdown</div><div class="pd2">For blogs and GitHub</div></div></div>
+    <div class="pcard" id="pCopy" onclick="selPub('copy')"><div class="pi2">📋</div><div><div class="pt2">Copy to Clipboard</div><div class="pd2">Paste into Docs, email, LMS</div></div></div>
+    <button class="acbtn pri" onclick="openPrev()" style="margin-top:.4rem">👁 Preview Article</button>
+    <button class="acbtn wiki-btn" onclick="doExport()">⬇ Export / Publish</button>
+    <button class="acbtn dng" onclick="clearAll()">🗑 Clear All</button>
+  </div>
+</aside>
+</div>
+
+<!-- WORD COUNT BAR -->
+<div id="wcbar">
+  <span>Words: <b id="wc2">0</b></span>
+  <span>Chars: <b id="cc2">0</b></span>
+  <span>Read time: <b id="rt2">0m</b></span>
+  <span id="suggest-indicator" style="display:none;color:#188038;font-weight:800">✏️ Suggesting mode ON</span>
+</div>
+
+<footer class="mf">Made by <strong>TalonA14Studios</strong> &nbsp;•&nbsp; ArticleCraft Pro v4.0 &nbsp;•&nbsp; Google Docs-style editing &nbsp;•&nbsp; 🌐 Wiki Library</footer>
+<div id="toast"></div>
+
+<!-- ═══ MODALS ═══ -->
+<div class="ov" id="m-link"><div class="mb"><div class="mt">🔗 Insert Hyperlink</div><input class="mi2" id="lkt" placeholder="Display text (optional)"><input class="mi2" id="lku" placeholder="https://example.com"><div class="mac"><button class="mcl" onclick="closeM('link')">Cancel</button><button class="mok" onclick="insLink()">Insert</button></div></div></div>
+<div class="ov" id="m-image"><div class="mb"><div class="mt">🖼 Insert Image</div><input class="mi2" id="imu" placeholder="Image URL (https://…)"><p style="font-size:.72rem;color:#94a3b8;margin:-3px 0 7px">— or upload a file —</p><input type="file" id="imf" accept="image/*" style="margin-bottom:8px;font-size:.76rem"><input class="mi2" id="ima" placeholder="Alt text / description"><div class="mac"><button class="mcl" onclick="closeM('image')">Cancel</button><button class="mok" onclick="insImg()">Insert</button></div></div></div>
+<div class="ov" id="m-cap"><div class="mb"><div class="mt">📝 Insert Caption</div><input class="mi2" id="capt" placeholder="Caption text…"><div class="mac"><button class="mcl" onclick="closeM('cap')">Cancel</button><button class="mok" onclick="insCap()">Insert</button></div></div></div>
+<div class="ov" id="m-vid"><div class="mb"><div class="mt">▶️ Embed Video</div><input class="mi2" id="vidu" placeholder="YouTube or Vimeo URL"><p style="font-size:.72rem;color:#94a3b8;margin:-3px 0 4px">Supports youtube.com &amp; vimeo.com</p><div class="mac"><button class="mcl" onclick="closeM('vid')">Cancel</button><button class="mok" onclick="insVid()">Embed</button></div></div></div>
+<div class="ov" id="m-tbl"><div class="mb"><div class="mt">📊 Insert Table</div><div style="display:flex;gap:10px;margin-bottom:8px"><input class="mi2" id="tbr" type="number" placeholder="Rows" min="1" max="20" value="3" style="flex:1"><input class="mi2" id="tbc" type="number" placeholder="Cols" min="1" max="10" value="3" style="flex:1"></div><div class="mac"><button class="mcl" onclick="closeM('tbl')">Cancel</button><button class="mok" onclick="insTbl()">Insert</button></div></div></div>
+<div class="ov" id="m-emoji"><div class="mb"><div class="mt">😊 Insert Emoji</div><div id="eg"></div><div class="mac"><button class="mcl" onclick="closeM('emoji')">Close</button></div></div></div>
+<div class="ov" id="m-export"><div class="mb" style="width:540px"><div class="mt">⬇ Export Article</div><div id="excode" class="excode"></div><div class="mac"><button class="mcl" onclick="closeM('export')">Close</button><button class="mok" onclick="cpHtml()">Copy HTML</button><button class="mok gr" onclick="dlHtml()">Download .html</button><button class="mok or" onclick="dlMd()">Download .md</button></div></div></div>
+<div class="ov" id="m-footnote"><div class="mb"><div class="mt">¹ Insert Footnote</div><input class="mi2" id="fnnum" type="number" value="1" placeholder="Number"><input class="mi2" id="fntxt" placeholder="Footnote text / reference"><div class="mac"><button class="mcl" onclick="closeM('footnote')">Cancel</button><button class="mok" onclick="insFootnote()">Insert</button></div></div></div>
+<div class="ov" id="m-thesaurus"><div class="mb"><div class="mt">📖 Thesaurus</div><div style="display:flex;gap:6px;margin-bottom:8px"><input class="mi2" id="thword" placeholder="Enter a word…" style="flex:1;margin:0" onkeydown="if(event.key==='Enter')lookupThes()"><button class="mok" onclick="lookupThes()" style="height:36px">Look up</button></div><div id="thresults" style="min-height:50px;font-size:.78rem;color:var(--g-muted)">Type a word and press Look up</div><div class="mac"><button class="mcl" onclick="closeM('thesaurus')">Close</button></div></div></div>
+<div class="ov" id="m-findreplace"><div class="mb"><div class="mt">🔍 Find &amp; Replace</div><input class="mi2" id="fr-find" placeholder="Find…"><input class="mi2" id="fr-rep" placeholder="Replace with…"><div id="fr-result" style="font-size:.73rem;color:var(--g-muted);margin-bottom:6px"></div><div class="mac"><button class="mcl" onclick="closeM('findreplace')">Close</button><button class="mok" onclick="doFind()">Find</button><button class="mok gr" onclick="doReplace()">Replace All</button></div></div></div>
+<div class="ov" id="m-tts"><div class="mb"><div class="mt">🔊 Read Aloud</div><p style="font-size:.78rem;color:var(--g-muted);margin-bottom:10px">Your article will be read using your browser's speech engine.</p><div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><label style="font-size:.74rem;font-weight:700">Speed:</label><input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1" style="flex:1;accent-color:#1a73e8"><span id="tts-rate-lbl" style="font-size:.7rem;font-family:var(--font-mono)">1.0×</span></div><div class="mac"><button class="mcl" onclick="stopTts();closeM('tts')">Stop &amp; Close</button><button class="mok" onclick="startTts()">▶ Read Now</button></div></div></div>
+<div class="ov" id="m-translate"><div class="mb"><div class="mt">🌍 Translate Article</div><p style="font-size:.76rem;color:var(--g-muted);margin-bottom:10px">Opens Google Translate with your text pre-loaded.</p><select class="mi2" id="tlang"><option value="es">Spanish</option><option value="fr">French</option><option value="de">German</option><option value="zh-CN">Chinese (Simplified)</option><option value="ja">Japanese</option><option value="ar">Arabic</option><option value="pt">Portuguese</option><option value="hi">Hindi</option><option value="ko">Korean</option><option value="it">Italian</option></select><div class="mac"><button class="mcl" onclick="closeM('translate')">Cancel</button><button class="mok" onclick="doTranslate()">Open Translate</button></div></div></div>
+<div class="ov" id="m-outline"><div class="mb" style="width:480px"><div class="mt">📋 Outline Generator</div><select class="mi2" id="out-type"><option value="news">News Article</option><option value="opinion">Opinion / Editorial</option><option value="research">Research Report</option><option value="review">Book/Film Review</option><option value="how-to">How-To Guide</option><option value="bio">Biography</option></select><input class="mi2" id="out-topic" placeholder="Topic or title…"><div id="out-result" style="display:none;background:#f8f9fa;border-radius:8px;padding:.75rem;font-size:.76rem;line-height:1.7;margin-bottom:8px;max-height:210px;overflow-y:auto;color:var(--g-text)"></div><div class="mac"><button class="mcl" onclick="closeM('outline')">Close</button><button class="mok" onclick="genOutline()">Generate</button><button class="mok gr" id="out-ins" style="display:none" onclick="insertOutline()">Insert</button></div></div></div>
+<div class="ov" id="m-colorpicker"><div class="mb" style="width:320px"><div class="mt" id="cp-title">🎨 Choose Color</div><div id="cp-swatches" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px"></div><input type="color" id="cp-custom" style="width:100%;height:34px;border:1px solid var(--g-border);border-radius:6px;cursor:pointer;margin-bottom:6px"><div class="mac"><button class="mcl" onclick="closeM('colorpicker')">Cancel</button><button class="mok" onclick="applyPickedColor()">Apply</button></div></div></div>
+<div class="ov" id="m-shortcuts"><div class="mb" style="width:460px"><div class="mt">⌨️ Keyboard Shortcuts</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.76rem;max-height:320px;overflow-y:auto"><div style="font-weight:700">Action</div><div style="font-weight:700;font-family:var(--font-mono)">Shortcut</div><div>Bold</div><div style="font-family:var(--font-mono)">Ctrl+B</div><div>Italic</div><div style="font-family:var(--font-mono)">Ctrl+I</div><div>Underline</div><div style="font-family:var(--font-mono)">Ctrl+U</div><div>Undo</div><div style="font-family:var(--font-mono)">Ctrl+Z</div><div>Redo</div><div style="font-family:var(--font-mono)">Ctrl+Y</div><div>Select All</div><div style="font-family:var(--font-mono)">Ctrl+A</div><div>Link</div><div style="font-family:var(--font-mono)">Ctrl+K</div><div>Find & Replace</div><div style="font-family:var(--font-mono)">Ctrl+H</div><div>Focus Mode</div><div style="font-family:var(--font-mono)">F</div><div>Save Version</div><div style="font-family:var(--font-mono)">Ctrl+S</div><div>Print</div><div style="font-family:var(--font-mono)">Ctrl+P</div></div><div class="mac"><button class="mcl" onclick="closeM('shortcuts')">Close</button></div></div></div>
+
+<!-- Wiki Publish Modal -->
+<div class="ov" id="m-wiki"><div class="mb" style="width:500px"><div class="mt">🌐 Publish to Wiki Library</div>
+  <div class="wiki-preview"><div class="wiki-header-bar">📰 Article Preview</div><div class="wiki-body-prev" id="wikiPrevBody"></div></div>
+  <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.7rem"><label style="font-size:.7rem;font-weight:800;color:var(--g-muted)">Display Name</label><input class="mi2" id="wk-author" placeholder="Your name" style="margin:0"></div>
+  <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.7rem"><label style="font-size:.7rem;font-weight:800;color:var(--g-muted)">Category</label><select class="mi2" id="wk-cat" style="margin:0"><option value="Science">Science</option><option value="History">History</option><option value="Technology">Technology</option><option value="Environment">Environment</option><option value="Arts">Arts</option><option value="Sports">Sports</option><option value="Current Events">Current Events</option><option value="Opinion">Opinion</option><option value="Creative">Creative</option></select></div>
+  <div class="mac"><button class="mcl" onclick="closeM('wiki')">Cancel</button><button class="mok" style="background:#1a73e8" onclick="publishToWiki()">🌐 Publish Now</button></div>
+</div></div>
+
+<!-- PREVIEW -->
+<div id="prev">
+  <div class="pvbar"><h3>PREVIEW MODE</h3><div style="display:flex;gap:.4rem"><button class="pvclose" onclick="printArticle()">🖨 Print</button><button class="pvclose" onclick="closePrev()">✕ Close</button></div></div>
+  <div class="pvwrap">
+    <div id="pvlw"></div>
+    <h1 class="pvtitle" id="pvt"></h1>
+    <div class="pvmeta" id="pvm"></div>
+    <img class="pvcov" id="pvc" style="display:none">
+    <div class="pvbody" id="pvb"></div>
+  </div>
+  <footer class="mf">Made by <strong>TalonA14Studios</strong> &nbsp;•&nbsp; ArticleCraft Pro v4.0</footer>
+</div>
+
+<!-- WIKI LIBRARY -->
+<div id="wikiLib">
+  <div class="wl-bar">
+    <div class="wl-title">🌐 ArticleCraft Wiki Library</div>
+    <div class="wl-searchrow">
+      <input class="wl-search" id="wl-search" placeholder="Search articles…" oninput="filterWiki()">
+      <button class="wl-close" onclick="closeWikiLib()">✕ Close</button>
+    </div>
+  </div>
+  <div class="wl-content">
+    <div class="wl-cats" id="wl-cats"></div>
+    <div class="wl-grid" id="wl-grid"></div>
+  </div>
+</div>
+
+<!-- WIKI ARTICLE VIEW -->
+<div id="wikiArticle">
+  <div class="wa-bar">
+    <div style="font-size:.88rem;font-weight:800;display:flex;align-items:center;gap:.4rem;color:#fff">🌐 <span id="wa-heading">Article</span></div>
+    <div class="wa-actions">
+      <button class="wa-btn" style="background:rgba(255,255,255,.18);color:#fff" onclick="editFromWiki()">✏️ Edit</button>
+      <button class="wa-btn" style="background:#d93025;color:#fff" onclick="deleteWikiArticle()">🗑 Delete</button>
+      <button class="wa-btn" style="background:rgba(255,255,255,.18);color:#fff" onclick="closeWikiArticle()">✕ Close</button>
+    </div>
+  </div>
+  <div class="wa-content">
+    <img class="wa-cover" id="wa-cover">
+    <h1 class="wa-title" id="wa-title"></h1>
+    <div class="wa-meta" id="wa-meta"></div>
+    <div class="wa-body" id="wa-body"></div>
+  </div>
+  <div class="wa-comments">
+    <div class="wa-comm-title">💬 Comments</div>
+    <div id="wa-comments-list"></div>
+    <div class="comm-input-area">
+      <textarea class="comm-input" id="comm-input" placeholder="Add a comment…"></textarea>
+      <div style="display:flex;gap:.4rem;align-items:center;margin-top:.3rem">
+        <input style="flex:1;padding:5px 9px;border:1px solid var(--g-border);border-radius:6px;font-size:.76rem;outline:none;font-family:var(--font-ui);background:#f8f9fa" id="comm-name" placeholder="Your name">
+        <button class="comm-submit" onclick="addComment()">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ STATE ══
+let role='free',grade='elem',pubType='html',sR=null,logoURL=null,coverURL=null,wGoal=0;
+let wikiArticles=[],versions=[],notes=[],currentWikiIdx=-1,ttsUtterance=null,lastOutline='';
+let suggestMode=false,pageView=true,currentColorMode='fore';
+
+const EM=['😀','😂','😍','🥳','😎','🤔','👍','👏','🎉','🔥','⭐','🌟','💡','📚','✏️','📰','🏆','❤️','🌍','🦁','🌈','☀️','🍎','🎓','📷','🎥','🔗','📌','✅','⚡','🎯','🧠','💪','🙌','👀','📢','🐾','🌺','🏅','🎨','🎵','🤝','🏫','🔬','🌙','🦋','🚀','💎','🎸','🌊','🦅'];
+const RUB={
+  elem:[{t:'I have a title',p:5},{t:'I wrote my name',p:5},{t:'Beginning, middle & end',p:15},{t:'At least 3 complete sentences',p:10},{t:'Capital letters at sentence start',p:10},{t:'Punctuation used (. ! ?)',p:10},{t:'A photo or image is added',p:10},{t:'Writing stays on topic',p:15},{t:'Read it aloud — it makes sense!',p:20}],
+  mid:[{t:'Clear headline and byline',p:5},{t:'Strong hook in first paragraph',p:15},{t:'At least 3 supporting paragraphs',p:20},{t:'Evidence or examples used',p:15},{t:'Transitions between paragraphs',p:10},{t:'Correct spelling & grammar',p:15},{t:'Conclusion wraps up the article',p:10},{t:'At least one image or visual',p:10}],
+  high:[{t:'Compelling headline & sub-headline',p:5},{t:'Attention-grabbing lede paragraph',p:10},{t:'Clear thesis or central argument',p:15},{t:'3+ supporting points with evidence',p:20},{t:'Credible sources cited or linked',p:10},{t:'Counterargument acknowledged',p:10},{t:'Strong, reflective conclusion',p:10},{t:'Grammar, syntax & style polished',p:15},{t:'Multimedia enhances the story',p:5}]
+};
+const TIPS={elem:'Keep sentences short and fun! 🌟',mid:'Back up your ideas with facts and examples.',high:'Strong arguments need evidence and clear structure.'};
+const PH={elem:'Start writing your article here… 🌟',mid:'Write your article here. Start with a strong opening hook.',high:'Begin with a compelling lede. State your argument and support it with evidence.'};
+const GLABELS={elem:'📚 Elementary School',mid:'📖 Middle School',high:'🎓 High School'};
+const PROMPTS={elem:['My Favorite Place','An Amazing Discovery','A Day in My Life','Why I Love Science','Book Review'],mid:['Social Media: Good or Bad?','Climate Change & Our Future','My Community Needs','Historical Figure Spotlight','Should School Start Later?'],high:['The Ethics of AI','Free Speech on Campus','Income Inequality','Reforming Education','The True Cost of College']};
+const THESAURUS={good:['great','excellent','wonderful','fantastic','superb','outstanding','brilliant','splendid'],bad:['poor','terrible','awful','dreadful','horrible','unpleasant','inferior','unsatisfactory'],big:['large','huge','enormous','massive','gigantic','colossal','immense','vast'],small:['tiny','little','miniature','petite','compact','minute','microscopic','slight'],happy:['joyful','elated','cheerful','delighted','pleased','content','ecstatic','thrilled'],sad:['unhappy','sorrowful','melancholy','gloomy','dejected','despondent','downhearted','mournful'],smart:['intelligent','clever','brilliant','astute','sharp','wise','gifted','talented'],fast:['quick','rapid','swift','speedy','hasty','fleet','brisk','prompt'],important:['significant','crucial','vital','essential','critical','key','major','paramount'],said:['stated','declared','mentioned','explained','noted','remarked','commented','expressed'],show:['demonstrate','reveal','display','present','illustrate','exhibit','indicate','prove'],help:['assist','support','aid','guide','facilitate','enable','encourage','contribute'],think:['believe','consider','ponder','reflect','contemplate','speculate','reason','analyze'],make:['create','produce','build','construct','develop','generate','craft','form'],use:['utilize','employ','apply','adopt','implement','leverage','harness','deploy'],interesting:['fascinating','captivating','engaging','compelling','intriguing','stimulating','absorbing','riveting'],difficult:['challenging','complex','demanding','tough','arduous','intricate','strenuous','formidable'],beautiful:['gorgeous','stunning','magnificent','lovely','exquisite','breathtaking','radiant','elegant']};
+const OUTLINES={news:`📰 **News Article Outline**\n\n**Headline:** [Your title]\n**Byline:** By [Your Name]\n\n**Lead Paragraph** — Answer the 5 W's\n\n**Body 1 — Key Facts**\n— Most important details\n\n**Body 2 — Background**\n— Context and history\n\n**Body 3 — Reactions**\n— Quotes and perspectives\n\n**Conclusion**\n— What happens next?`,opinion:`💬 **Opinion / Editorial Outline**\n\n**Headline:** [Your opinion]\n**Byline:** By [Your Name]\n\n**Introduction**\n— Hook + Thesis\n\n**Argument 1**\n— Evidence / example\n\n**Argument 2**\n— Evidence / example\n\n**Counterargument**\n— Acknowledge + Rebut\n\n**Conclusion**\n— Restate position`,research:`🔬 **Research Report Outline**\n\n**Title:** [Topic]\n**Author:** [Your Name]\n\n**Abstract**\n\n**Introduction**\n— Background\n— Research question\n\n**Methods**\n\n**Findings 1**\n\n**Findings 2**\n\n**Discussion**\n\n**Conclusion**\n\n**References**`,review:`⭐ **Review Outline**\n\n**Title:** [Title] — Review\n\n**Introduction**\n— What is it? Rating?\n\n**Summary** (no spoilers)\n\n**Strengths**\n\n**Weaknesses**\n\n**Recommendation**`,
+'how-to':`🛠 **How-To Guide**\n\n**Title:** How to [Do Something]\n\n**Introduction**\n\n**What You Need**\n\n**Step 1:**\n\n**Step 2:**\n\n**Step 3:**\n\n**Tips & Warnings**\n\n**Conclusion**`,bio:`👤 **Biography Outline**\n\n**Title:** [Name]\n\n**Introduction**\n— Who are they?\n\n**Early Life**\n\n**Major Achievements**\n\n**Challenges**\n\n**Legacy**\n\n**Conclusion**`};
+
+// ══ TOAST ══
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+
+// ══ TAB SWITCHING ══
+function switchLpTab(tab,btn){document.querySelectorAll('.lp-tab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.lp-pane').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('lp-'+tab).classList.add('on')}
+function switchRpTab(tab,btn){document.querySelectorAll('.rp-tab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.rp-pane').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById('rp-'+tab).classList.add('on')}
+
+// ══ ENTER ══
+function enterAs(r){
+  role=r;
+  const sp=document.getElementById('splash');sp.classList.add('exit');
+  setTimeout(()=>sp.style.display='none',500);
+  document.getElementById('rbadge').textContent=r==='teacher'?'👩‍🏫 Teacher':r==='student'?'🎒 Student':'✏️ Free Write';
+  if(r==='teacher')document.body.classList.add('teacher');
+  buildRub();if(wikiArticles.length===0)loadDemoArticles();
+}
+function setGrade(g,btn){
+  grade=g;
+  const cls=document.body.classList;cls.remove('elem','mid','high');
+  if(cls.contains('teacher'))document.body.className='teacher '+g;
+  else document.body.className=g;
+  document.querySelectorAll('.gb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('ghb').textContent=GLABELS[g];
+  document.getElementById('tch').textContent=TIPS[g];
+  document.getElementById('bod').dataset.ph=PH[g];
+  buildRub();updPrompts();
+  document.getElementById('lp-stickers').style.display=g==='elem'?'block':'none';
+}
+function updPrompts(){
+  const row=document.getElementById('prow');const chips=row.querySelectorAll('.pc');
+  PROMPTS[grade].forEach((p,i)=>{if(chips[i])chips[i].textContent=p});
+  row.style.display=grade==='high'?'none':'flex';
+}
+function setP(c){const t=document.getElementById('att');if(!t.value)t.value=c.textContent;document.getElementById('bod').focus()}
+
+// ══ RUBRIC ══
+function buildRub(){
+  const l=document.getElementById('rl');l.innerHTML='';
+  RUB[grade].forEach((item,i)=>{
+    const el=document.createElement('div');el.className='ri';el.dataset.i=i;
+    el.innerHTML=`<div class="rck" id="rc${i}"></div><div><div class="rt2">${item.t}</div><div class="rp2">${item.p} pts</div></div>`;
+    el.onclick=()=>{el.classList.toggle('dn');document.getElementById('rc'+i).textContent=el.classList.contains('dn')?'✓':'';updScore()};
+    l.appendChild(el);
+  });
+  document.getElementById('sdis').style.display=(role==='student'||role==='teacher')?'block':'none';
+  updScore();
+}
+function updScore(){let e=0,t=0;document.querySelectorAll('.ri').forEach((el,i)=>{const p=RUB[grade][i]?RUB[grade][i].p:0;t+=p;if(el.classList.contains('dn'))e+=p});document.getElementById('sv').textContent=`${e} / ${t}`}
+
+function applyAssign(){
+  const ti=document.getElementById('tai1').value.trim(),pr=document.getElementById('tai2').value.trim(),du=document.getElementById('tai3').value,go=parseInt(document.getElementById('tai4').value)||0;
+  if(!ti&&!pr)return;wGoal=go;
+  document.getElementById('abt').textContent=ti||'Assignment';
+  document.getElementById('abp').textContent=pr||'';
+  document.getElementById('abd').textContent=du?'Due: '+new Date(du).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+  document.getElementById('abg').textContent=go?`Goal: ${go} words`:'';
+  document.getElementById('ab').style.display='block';
+  if(go){['gbar','gbar2'].forEach(id=>{document.getElementById(id).style.display='block'});['glbl','glbl2'].forEach(id=>{document.getElementById(id).style.display='block'});}
+  updStats();toast('✅ Assignment applied!');
+}
+
+// ══ STATS ══
+document.getElementById('bod').addEventListener('input',()=>{updStats();refreshOutline()});
+function updStats(){
+  const tx=document.getElementById('bod').innerText.trim();
+  const w=tx?tx.split(/\s+/).filter(Boolean).length:0;
+  const sentences=tx?tx.split(/[.!?]+/).filter(s=>s.trim().length>2).length:0;
+  const pg=document.getElementById('bod').querySelectorAll('p,h1,h2,h3,li,blockquote').length||(tx?1:0);
+  const rt=Math.max(1,Math.ceil(w/200))+'m';
+  ['wc','wc2'].forEach(id=>document.getElementById(id).textContent=w);
+  ['cc','cc2'].forEach(id=>document.getElementById(id).textContent=tx.length);
+  ['rt','rt2'].forEach(id=>document.getElementById(id).textContent=rt);
+  document.getElementById('pc').textContent=Math.max(pg,tx?1:0);
+  document.getElementById('sent').textContent=sentences;
+  if(w>10&&sentences>0){const avgWpS=w/sentences;const avgSyl=tx.split(/\s+/).reduce((a,wd)=>a+countSyl(wd),0)/w;const fk=Math.round(0.39*avgWpS+11.8*avgSyl-15.59);document.getElementById('slvl').textContent='G'+(fk<1?'K':fk>12?'12+':fk);}else document.getElementById('slvl').textContent='—';
+  if(wGoal>0){const pct=Math.min(100,Math.round(w/wGoal*100));['gfill','gfill2'].forEach(id=>{document.getElementById(id).style.width=pct+'%';document.getElementById(id).style.background=pct>=100?'#188038':'var(--grade-primary)'});['glbl','glbl2'].forEach(id=>{document.getElementById(id).textContent=`${w} / ${wGoal} words${pct>=100?' 🎉 Goal reached!':''}`});}
+}
+function countSyl(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(w.length<=3)return 1;let c=(w.match(/[aeiouy]+/g)||[]).length;if(w.endsWith('e'))c--;return Math.max(1,c)}
+
+// ══ FORMATTING ══
+function svR(){const s=window.getSelection();if(s&&s.rangeCount)sR=s.getRangeAt(0).cloneRange()}
+function rstR(){if(sR){const s=window.getSelection();s.removeAllRanges();s.addRange(sR)}}
+function fe(){document.getElementById('bod').focus()}
+function fmt(c,v){fe();document.execCommand(c,false,v||null);updStats()}
+function applyStyle(v){fe();document.execCommand('formatBlock',false,v);updStats()}
+function applyFont(v){fe();document.execCommand('fontName',false,v);updStats()}
+function applyFontSize(v){fe();document.execCommand('fontSize',false,v);updStats()}
+function setLineSpacing(v){document.getElementById('bod').style.lineHeight=v;document.getElementById('glbl').dataset.lh=v}
+function setZoom(v){document.getElementById('docPage').style.transform=`scale(${v/100})`;document.getElementById('docPage').style.transformOrigin='top center';document.getElementById('ew').style.paddingBottom=(v>100?((v-100)*5)+'px':'2rem')}
+function toggleActive(id){const b=document.getElementById(id);b.classList.toggle('active')}
+function insHR(){fe();document.execCommand('insertHTML',false,'<hr>');updStats()}
+function insDv(){fe();document.execCommand('insertHTML',false,'<hr>');updStats()}
+function insTxt(t){fe();document.execCommand('insertText',false,t)}
+function insDate(){fe();document.execCommand('insertText',false,new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}));updStats()}
+function insPageBreak(){fe();document.execCommand('insertHTML',false,'<div class="pg-break"><span>— PAGE BREAK —</span></div>');updStats()}
+function insChecklist(){fe();document.execCommand('insertHTML',false,'<div style="display:flex;align-items:center;gap:8px;margin:.2rem 0"><input type="checkbox" style="width:15px;height:15px;accent-color:var(--grade-primary)"><span contenteditable="true">Checklist item</span></div>');updStats()}
+
+// ══ COLOR PICKER ══
+const SWATCHES=['#202124','#d93025','#1a73e8','#188038','#e37400','#7c3aed','#0d7377','#c2185b','#ffffff','#f5f5f5','#fce8e6','#e8f0fe','#e6f4ea','#fff3e0','#f3e8ff'];
+function openColorPicker(mode){
+  currentColorMode=mode;
+  document.getElementById('cp-title').textContent=mode==='fore'?'🎨 Text Color':'🖍 Highlight Color';
+  const sw=document.getElementById('cp-swatches');sw.innerHTML='';
+  SWATCHES.forEach(c=>{const d=document.createElement('div');d.style.cssText=`width:26px;height:26px;border-radius:50%;background:${c};cursor:pointer;border:2px solid ${c==='#ffffff'?'#dadce0':'transparent'}`;d.onclick=()=>applyColor(c,mode);sw.appendChild(d)});
+  svR();openM('colorpicker');
+}
+function applyColor(c,mode){
+  rstR();fe();
+  if(mode==='fore'){document.execCommand('foreColor',false,c);document.getElementById('fore-bar').style.background=c;}
+  else{document.execCommand('hiliteColor',false,c);document.getElementById('hi-bar').style.background=c;}
+  updStats();
+}
+function applyPickedColor(){const c=document.getElementById('cp-custom').value;applyColor(c,currentColorMode);closeM('colorpicker')}
+
+// ══ SUGGEST MODE ══
+function toggleSuggest(){
+  suggestMode=!suggestMode;
+  document.body.classList.toggle('suggest-mode',suggestMode);
+  const btn=document.getElementById('tb-suggest');
+  btn.textContent=suggestMode?'💡 Suggesting':'✏️ Edit';
+  btn.classList.toggle('active',suggestMode);
+  document.getElementById('suggest-indicator').style.display=suggestMode?'inline':'none';
+  toast(suggestMode?'💡 Suggesting mode ON — changes shown in green/red':'✏️ Back to editing mode');
+}
+
+// ══ PAGE VIEW ══
+function togglePageView(){
+  pageView=!pageView;
+  const pg=document.getElementById('docPage');
+  if(pageView){pg.classList.remove('no-shadow');}else{pg.classList.add('no-shadow');}
+  toast(pageView?'📄 Page view ON':'📄 Page view OFF');
+}
+
+// ══ FOCUS MODE ══
+function toggleFocus(){document.body.classList.toggle('focus-mode');toast(document.body.classList.contains('focus-mode')?'🎯 Focus mode ON — Esc to exit':'Focus mode OFF')}
+
+// ══ DOCUMENT OUTLINE ══
+function refreshOutline(){
+  const list=document.getElementById('outline-list');
+  const headings=document.getElementById('bod').querySelectorAll('h1,h2,h3');
+  if(headings.length===0){list.innerHTML='<div class="outline-empty">Add headings (H1, H2, H3) to your article to see them here.</div>';return;}
+  list.innerHTML=[...headings].map(h=>{
+    const lvl=h.tagName.toLowerCase();
+    const txt=h.textContent.trim()||'(untitled)';
+    return`<div class="outline-item ${lvl}" onclick="h.scrollIntoView({behavior:'smooth',block:'start'})">
+      ${lvl==='h1'?'◆':lvl==='h2'?'◇':'·'} ${txt}</div>`;
+  }).join('');
+}
+
+// ══ INLINE COMMENTS ══
+function addInlineComment(){
+  const sel=window.getSelection();
+  if(!sel||!sel.toString().trim()){toast('Select some text first to add a comment');return;}
+  const name=prompt('Your name:')||'Anonymous';
+  const txt=prompt('Comment:');if(!txt)return;
+  svR();rstR();fe();
+  document.execCommand('insertHTML',false,`<span class="inline-comment" title="${name}: ${txt}">${sel.toString()}</span>`);
+  addNoteEntry(name,`"${sel.toString().substring(0,30)}…" — ${txt}`);
+  toast('💬 Comment added!');
+}
+
+// ══ NOTES ══
+function addNote(){
+  const txt=document.getElementById('note-input').value.trim();
+  const name=document.getElementById('note-author').value.trim()||'Anonymous';
+  if(!txt)return;
+  notes.push({name,txt,date:new Date().toLocaleTimeString()});
+  document.getElementById('note-input').value='';
+  renderNotes();toast('📝 Note added!');
+}
+function addNoteEntry(name,txt){notes.push({name,txt,date:new Date().toLocaleTimeString()});renderNotes()}
+function renderNotes(){
+  const el=document.getElementById('comments-list');
+  if(notes.length===0){el.innerHTML='<div style="font-size:.74rem;color:var(--g-muted);text-align:center;padding:.5rem">No notes yet</div>';return;}
+  const colors=['#f97316','#1a73e8','#188038','#7c3aed','#d93025','#0d7377'];
+  el.innerHTML=notes.map((n,i)=>`<div class="comment-thread"><div class="ct-header"><div class="ct-avatar" style="background:${colors[i%colors.length]}">${n.name.charAt(0).toUpperCase()}</div>${n.name}<span style="font-size:.6rem;color:var(--g-muted);font-weight:400;margin-left:auto">${n.date}</span></div><div class="ct-text">${n.txt}</div></div>`).join('');
+}
+
+// ══ VERSION HISTORY ══
+function saveVersion(){
+  const tx=document.getElementById('bod').innerHTML,ti=document.getElementById('att').value||'Untitled';
+  if(!tx.trim()){toast('Nothing to save!');return;}
+  versions.unshift({label:`v${versions.length+1} — ${ti.substring(0,18)}`,content:tx,time:new Date().toLocaleTimeString()});
+  if(versions.length>12)versions.pop();
+  renderVersions();toast('💾 Version saved!');
+}
+function renderVersions(){
+  const list=document.getElementById('verList');
+  if(versions.length===0){list.innerHTML='<div style="font-size:.68rem;color:var(--g-muted);text-align:center;padding:.3rem">No versions saved yet</div>';return;}
+  list.innerHTML=versions.map((v,i)=>`<div class="ver-item"><div><div class="ver-label">${v.label}</div><div class="ver-time">${v.time}</div></div><button class="ver-restore" onclick="restoreVersion(${i})">Restore</button></div>`).join('');
+}
+function restoreVersion(i){if(!confirm('Restore this version?'))return;document.getElementById('bod').innerHTML=versions[i].content;updStats();refreshOutline();toast('✅ Restored!')}
+
+// ══ KEYBOARD SHORTCUTS ══
+function showShortcuts(){openM('shortcuts')}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){document.body.classList.remove('focus-mode');}
+  if(e.key==='F'&&!e.ctrlKey&&!e.metaKey&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'&&!e.target.isContentEditable)toggleFocus();
+  if((e.ctrlKey||e.metaKey)&&!e.shiftKey){
+    if(e.key==='s'){e.preventDefault();saveVersion();}
+    if(e.key==='h'){e.preventDefault();openM('findreplace');}
+    if(e.key==='k'){e.preventDefault();svR();openM('link');}
+  }
+});
+
+// ══ MEDIA ══
+function svR(){const s=window.getSelection();if(s&&s.rangeCount)sR=s.getRangeAt(0).cloneRange()}
+function rstR(){if(sR){const s=window.getSelection();s.removeAllRanges();s.addRange(sR)}}
+function loadCov(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{coverURL=ev.target.result;document.getElementById('cz').innerHTML=`<img src="${coverURL}" alt="Cover">`};r.readAsDataURL(f)}
+function loadLogo(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{logoURL=ev.target.result;document.getElementById('lz').innerHTML=`<img src="${logoURL}" alt="Logo">`};r.readAsDataURL(f)}
+
+// ══ MODALS ══
+function openM(n){svR();if(n==='emoji')buildEmoji();if(n==='wiki')prepWikiModal();document.getElementById('m-'+n).classList.add('open')}
+function closeM(n){document.getElementById('m-'+n).classList.remove('open');fe()}
+document.querySelectorAll('.ov').forEach(el=>el.addEventListener('click',e=>{if(e.target===el){el.classList.remove('open');fe()}}));
+
+function insLink(){const u=document.getElementById('lku').value.trim(),t=document.getElementById('lkt').value.trim();if(!u)return;rstR();fe();if(t)document.execCommand('insertHTML',false,`<a href="${u}" target="_blank">${t}</a>`);else{document.execCommand('createLink',false,u);const a=window.getSelection()?.anchorNode?.parentNode;if(a?.tagName==='A')a.target='_blank';}document.getElementById('lku').value='';document.getElementById('lkt').value='';closeM('link');updStats()}
+function insImg(){const u=document.getElementById('imu').value.trim(),f=document.getElementById('imf').files[0],a=document.getElementById('ima').value.trim()||'Image';rstR();fe();const inj=src=>{document.execCommand('insertHTML',false,`<figure><img src="${src}" alt="${a}" style="max-width:100%;border-radius:8px"><figcaption>${a}</figcaption></figure>`);updStats()};if(f){const r=new FileReader();r.onload=ev=>inj(ev.target.result);r.readAsDataURL(f);}else if(u)inj(u);document.getElementById('imu').value='';document.getElementById('ima').value='';closeM('image')}
+function insCap(){const t=document.getElementById('capt').value.trim();if(!t)return;rstR();fe();document.execCommand('insertHTML',false,`<figcaption style="font-size:.74rem;color:var(--g-muted);text-align:center;font-style:italic;margin:3px 0 10px">${t}</figcaption>`);document.getElementById('capt').value='';closeM('cap');updStats()}
+function insVid(){const raw=document.getElementById('vidu').value.trim();if(!raw)return;let em='';const yt=raw.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);if(yt)em=`https://www.youtube.com/embed/${yt[1]}`;const vm=raw.match(/vimeo\.com\/(\d+)/);if(vm)em=`https://player.vimeo.com/video/${vm[1]}`;if(!em){alert('Please enter a valid YouTube or Vimeo URL.');return;}rstR();fe();document.execCommand('insertHTML',false,`<div class="ve"><iframe src="${em}" allowfullscreen></iframe></div>`);document.getElementById('vidu').value='';closeM('vid');updStats()}
+function insTbl(){const rows=parseInt(document.getElementById('tbr').value)||3,cols=parseInt(document.getElementById('tbc').value)||3;let h='<table style="width:100%;border-collapse:collapse;margin:.7rem 0">';for(let r=0;r<rows;r++){h+='<tr>';for(let c=0;c<cols;c++){if(r===0)h+=`<th contenteditable="true" style="border:1px solid var(--g-border);padding:7px;background:#f8f9fa;font-weight:700;text-align:left">Header</th>`;else h+=`<td contenteditable="true" style="border:1px solid var(--g-border);padding:7px">Cell</td>`;}h+='</tr>';}h+='</table>';rstR();fe();document.execCommand('insertHTML',false,h);closeM('tbl');updStats()}
+function insFootnote(){const num=document.getElementById('fnnum').value||'1',txt=document.getElementById('fntxt').value.trim();if(!txt)return;rstR();fe();document.execCommand('insertHTML',false,`<sup style="color:var(--grade-primary);font-weight:700;cursor:help" title="${txt}">[${num}]</sup>`);document.getElementById('fnnum').value=parseInt(num)+1;document.getElementById('fntxt').value='';closeM('footnote');updStats()}
+function buildEmoji(){const g=document.getElementById('eg');if(g.children.length)return;EM.forEach(e=>{const s=document.createElement('span');s.textContent=e;s.title=e;s.onclick=()=>{rstR();fe();document.execCommand('insertText',false,e);updStats();closeM('emoji')};g.appendChild(s)})}
+
+// ══ THESAURUS ══
+function lookupThes(){const word=document.getElementById('thword').value.trim().toLowerCase(),res=document.getElementById('thresults'),syns=THESAURUS[word];if(!syns){res.innerHTML=`<span style="color:var(--g-muted)">No synonyms found for "<strong>${word}</strong>". Try a simpler word.</span>`;return;}res.innerHTML=`<div style="font-size:.68rem;font-weight:800;color:var(--g-muted);margin-bottom:.4rem">Synonyms for "${word}":</div><div class="thes-results">${syns.map(s=>`<span class="thes-word" onclick="insertSynonym('${s}')">${s}</span>`).join('')}</div>`}
+function insertSynonym(word){rstR();fe();document.execCommand('insertText',false,word);updStats();toast(`Inserted: ${word}`)}
+
+// ══ FIND & REPLACE ══
+function doFind(){const q=document.getElementById('fr-find').value.trim();if(!q)return;const txt=document.getElementById('bod').innerText;const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const m=[...txt.matchAll(re)];document.getElementById('fr-result').textContent=m.length?`${m.length} match${m.length>1?'es':''} found`:'No matches found'}
+function doReplace(){const q=document.getElementById('fr-find').value.trim(),r=document.getElementById('fr-rep').value;if(!q)return;const bod=document.getElementById('bod');const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');const prev=bod.innerHTML;const n=(prev.match(re)||[]).length;bod.innerHTML=prev.replace(re,r);document.getElementById('fr-result').textContent=`Replaced ${n} instance${n!==1?'s':''}`;updStats();toast(`Replaced ${n} instance${n!==1?'s':''}`)}
+
+// ══ TTS ══
+function startTts(){stopTts();const txt=document.getElementById('bod').innerText.trim();if(!txt){toast('Nothing to read!');return;}const rate=parseFloat(document.getElementById('tts-rate').value);ttsUtterance=new SpeechSynthesisUtterance(txt);ttsUtterance.rate=rate;speechSynthesis.speak(ttsUtterance);toast('🔊 Reading aloud…')}
+function stopTts(){if(speechSynthesis.speaking)speechSynthesis.cancel();ttsUtterance=null}
+document.getElementById('tts-rate').addEventListener('input',function(){document.getElementById('tts-rate-lbl').textContent=parseFloat(this.value).toFixed(1)+'×'});
+
+// ══ TRANSLATE ══
+function doTranslate(){const lang=document.getElementById('tlang').value;const txt=encodeURIComponent(document.getElementById('bod').innerText.trim().substring(0,1500));window.open(`https://translate.google.com/?sl=auto&tl=${lang}&text=${txt}&op=translate`,'_blank');closeM('translate')}
+
+// ══ OUTLINE GENERATOR ══
+function genOutline(){const type=document.getElementById('out-type').value,topic=document.getElementById('out-topic').value.trim();let ol=OUTLINES[type]||OUTLINES.news;if(topic)ol=ol.replace('[Your title]',topic).replace('[Topic]',topic).replace('[Name]',topic);lastOutline=ol;const el=document.getElementById('out-result');el.style.display='block';el.innerHTML=ol.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');document.getElementById('out-ins').style.display='inline-block'}
+function insertOutline(){const txt=lastOutline.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');fe();document.execCommand('insertHTML',false,'<div style="color:var(--g-muted);font-style:italic;border-left:3px solid var(--grade-primary);padding:.5rem 1rem;margin-bottom:1rem">'+txt+'</div>');closeM('outline');updStats();toast('📋 Outline inserted!')}
+
+// ══ PREVIEW & PRINT ══
+function openPrev(){
+  document.getElementById('pvt').textContent=document.getElementById('att').value||'Untitled Article';
+  const a=document.getElementById('auin').value,d=document.getElementById('adin').value,s=document.getElementById('asin').value;
+  document.getElementById('pvm').textContent=[a&&'By '+a,d&&new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),s].filter(Boolean).join(' · ');
+  const co=document.getElementById('pvc');if(coverURL){co.src=coverURL;co.style.display='block';}else co.style.display='none';
+  document.getElementById('pvlw').innerHTML=logoURL?`<img src="${logoURL}" alt="Logo" style="height:48px;object-fit:contain;display:block;margin-bottom:.8rem">`:'';
+  document.getElementById('pvb').innerHTML=document.getElementById('bod').innerHTML;
+  document.getElementById('prev').classList.add('open');
+}
+function closePrev(){document.getElementById('prev').classList.remove('open')}
+function printArticle(){window.print()}
+
+// ══ EXPORT ══
+function selPub(t){pubType=t;document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('sel'));const el=document.getElementById('p'+t.charAt(0).toUpperCase()+t.slice(1));if(el)el.classList.add('sel')}
+function doExport(){
+  if(pubType==='copy'){navigator.clipboard.writeText(document.getElementById('bod').innerText).then(()=>toast('📋 Copied to clipboard!'));}
+  else if(pubType==='wiki'){openM('wiki');}
+  else if(pubType==='md'){dlMd();}
+  else{openM('export');document.getElementById('excode').textContent=buildHtml().substring(0,3500)+'\n\n…(truncated — full file downloads correctly)';}
+}
+function buildHtml(){
+  const ti=document.getElementById('att').value||'Untitled',bo=document.getElementById('bod').innerHTML;
+  const au=document.getElementById('auin').value,da=document.getElementById('adin').value,su=document.getElementById('asin').value;
+  const lt=logoURL?`<img src="${logoURL}" style="height:58px;object-fit:contain;display:block;margin-bottom:1rem" alt="Logo">`:'';
+  const ct=coverURL?`<img src="${coverURL}" style="width:100%;border-radius:12px;margin-bottom:2rem;max-height:360px;object-fit:cover" alt="Cover">`:'';
+  const mt=[au&&'By '+au,da,su].filter(Boolean).join(' · ');
+  return`<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>${ti}</title>\n<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lora:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">\n<style>\nbody{font-family:'Nunito',sans-serif;max-width:740px;margin:3rem auto;padding:0 2rem;color:#202124;line-height:1.8;background:#f8f9fa}\nh1.tl{font-family:'Lora',serif;font-size:2.3rem;font-weight:700;margin-bottom:.4rem;line-height:1.2}\nh1,h2,h3{font-family:'Lora',serif}\nh1{font-size:1.8rem;margin:1rem 0 .35rem}\nh2{font-size:1.3rem;margin:.75rem 0 .3rem;border-bottom:1px solid #e0e0e0;padding-bottom:.25rem}\nblockquote{border-left:4px solid #f97316;padding:.5rem 1rem;background:#fafafa;border-radius:0 8px 8px 0;font-style:italic;margin:1rem 0}\na{color:#1a73e8}\ntable{width:100%;border-collapse:collapse;margin:.7rem 0}\ntd,th{border:1px solid #e0e0e0;padding:7px 9px}\nth{background:#f8f9fa;font-weight:700}\n.meta{color:#5f6368;font-size:.8rem;margin-bottom:1.4rem;border-bottom:1px solid #e0e0e0;padding-bottom:.7rem}\n.ve{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin:1rem 0}\n.ve iframe{width:100%;height:100%;border:none}\nfigcaption{font-size:.74rem;color:#5f6368;text-align:center;font-style:italic;margin-top:4px}\nimg{max-width:100%;border-radius:8px}\nul,ol{margin:.4rem 0 .4rem 1.4rem}\nhr{border:none;border-top:2px solid #e0e0e0;margin:.9rem 0}\nfooter{margin-top:3rem;border-top:1px solid #e0e0e0;padding-top:1rem;font-size:.68rem;color:#9aa0a6;text-align:center}\n</style>\n</head>\n<body>\n${lt}\n<h1 class="tl">${ti}</h1>\n<div class="meta">${mt}</div>\n${ct}\n${bo}\n<footer>Made by <strong>TalonA14Studios</strong> &nbsp;•&nbsp; ArticleCraft Pro v4.0</footer>\n</body>\n</html>`;
+}
+function cpHtml(){navigator.clipboard.writeText(buildHtml()).then(()=>toast('📋 HTML copied!'))}
+function dlHtml(){const b=new Blob([buildHtml()],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(document.getElementById('att').value||'article').replace(/\s+/g,'-')+'.html';a.click();closeM('export');toast('📁 Downloaded!')}
+function dlMd(){const ti=document.getElementById('att').value||'Untitled',au=document.getElementById('auin').value,da=document.getElementById('adin').value,tx=document.getElementById('bod').innerText;const md=`# ${ti}\n\n*By ${au||'Unknown'} · ${da||new Date().toISOString().split('T')[0]}*\n\n${tx}`;const b=new Blob([md],{type:'text/markdown'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(ti||'article').replace(/\s+/g,'-')+'.md';a.click();closeM('export');toast('📝 Markdown downloaded!')}
+
+// ══ CLEAR ══
+function clearAll(){
+  if(!confirm('Clear everything and start fresh?'))return;
+  document.getElementById('bod').innerHTML='';document.getElementById('att').value='';
+  document.getElementById('auin').value='';document.getElementById('asin').value='';
+  document.getElementById('atag').value='';document.getElementById('acategory').value='';
+  document.getElementById('pageHeader').innerHTML='';document.getElementById('pageFooter').innerHTML='';
+  coverURL=null;logoURL=null;wGoal=0;notes=[];
+  document.getElementById('cz').innerHTML=`<span style="font-size:1.8rem">📷</span><span class="czl">Click to add a cover photo</span><input type="file" id="cf" accept="image/*" style="display:none" onchange="loadCov(event)">`;
+  document.getElementById('lz').innerHTML=`+ Upload School Logo<input type="file" id="lf" accept="image/*" style="display:none" onchange="loadLogo(event)">`;
+  ['gbar','gbar2'].forEach(id=>document.getElementById(id).style.display='none');
+  ['glbl','glbl2'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('ab').style.display='none';
+  document.querySelectorAll('.ri').forEach(el=>{el.classList.remove('dn');const ck=document.getElementById('rc'+el.dataset.i);if(ck)ck.textContent=''});
+  renderNotes();document.getElementById('outline-list').innerHTML='<div class="outline-empty">Add headings to see them here.</div>';
+  updStats();updScore();toast('🗑 Cleared!');
+}
+
+// ══ WIKI LIBRARY ══
+function loadDemoArticles(){wikiArticles=[{id:1,title:'The Water Cycle Explained',author:'Ms. Johnson',category:'Science',date:'March 1, 2024',tags:['water','science','earth'],body:'<p>The water cycle describes the continuous movement of water within Earth and its atmosphere. Water evaporates from the ocean, rises into the atmosphere, cools and condenses into clouds, and falls back as precipitation.</p><h2>Evaporation</h2><p>The sun heats surface water, allowing molecules to escape into the atmosphere as vapor.</p><h2>Condensation</h2><p>As vapor rises, it cools and condenses around tiny particles, forming clouds.</p><h2>Precipitation</h2><p>When clouds hold enough water, they release it as rain, snow, sleet, or hail.</p>',cover:null,comments:[]},{id:2,title:'The History of the Internet',author:'Jake T.',category:'Technology',date:'February 15, 2024',tags:['internet','technology','history'],body:'<p>The internet began as ARPANET in the 1960s — a military project to share information even if parts of the network were destroyed.</p><h2>The World Wide Web</h2><p>In 1989, Tim Berners-Lee invented the WWW, creating HTML, URLs, and HTTP — making the internet accessible to everyone.</p><h2>Today</h2><p>Over 5 billion people now use the internet. Social media, streaming, and cloud computing have transformed daily life.</p>',cover:null,comments:[]},{id:3,title:'Why We Should Protect Rainforests',author:'Emma R.',category:'Environment',date:'January 20, 2024',tags:['environment','nature','climate'],body:'<p>Rainforests cover less than 6% of Earth but are home to more than half of all species. They are irreplaceable ecosystems.</p><h2>Biodiversity</h2><p>The Amazon hosts over 10% of all species on Earth. Many life-saving medicines come from rainforest plants.</p><h2>Climate</h2><p>Rainforests absorb massive amounts of CO₂, slowing climate change and producing rain through transpiration.</p>',cover:null,comments:[]},{id:4,title:"Charlotte's Web — Book Review",author:'Lily M.',category:'Arts',date:'March 10, 2024',tags:['book','review','literature'],body:"<p>Charlotte's Web by E.B. White is one of the most beloved children's books ever written, telling the story of Wilbur the pig and Charlotte the spider.</p><h2>The Story</h2><p>Charlotte weaves words into her web — 'Some Pig,' 'Terrific,' 'Humble' — to save Wilbur from slaughter, making him famous.</p><h2>What I Loved</h2><p>The story teaches loyalty, sacrifice, and the power of words. Charlotte's ending is heartbreaking but beautiful.</p><h2>Rating</h2><p>⭐⭐⭐⭐⭐ — Made me cry in the best way!</p>",cover:null,comments:[{author:'Ms. Smith',text:'What a beautiful review!',date:'March 11, 2024'}]}]}
+function openWikiLib(){if(wikiArticles.length===0)loadDemoArticles();document.getElementById('wikiLib').classList.add('open');renderWikiCats();renderWikiGrid(wikiArticles)}
+function closeWikiLib(){document.getElementById('wikiLib').classList.remove('open')}
+function renderWikiCats(){const cats=[...new Set(wikiArticles.map(a=>a.category))];document.getElementById('wl-cats').innerHTML=`<span class="wl-cat on" onclick="filterWikiCat('',this)">All</span>${cats.map(c=>`<span class="wl-cat" onclick="filterWikiCat('${c}',this)">${c}</span>`).join('')}`}
+let activeWikiCat='';
+function filterWikiCat(cat,btn){activeWikiCat=cat;document.querySelectorAll('.wl-cat').forEach(b=>b.classList.remove('on'));btn.classList.add('on');applyWikiFilter()}
+function filterWiki(){applyWikiFilter()}
+function applyWikiFilter(){const q=document.getElementById('wl-search').value.toLowerCase();let f=wikiArticles;if(activeWikiCat)f=f.filter(a=>a.category===activeWikiCat);if(q)f=f.filter(a=>a.title.toLowerCase().includes(q)||a.author.toLowerCase().includes(q)||(a.tags||[]).some(t=>t.includes(q)));renderWikiGrid(f)}
+function renderWikiGrid(articles){const grid=document.getElementById('wl-grid');if(articles.length===0){grid.innerHTML='<div class="wl-empty">No articles found. Write and publish your first one! ✏️</div>';return;}const emojis={Science:'🔬',History:'📜',Technology:'💻',Environment:'🌿',Arts:'🎨',Sports:'⚽','Current Events':'📰',Opinion:'💬',Creative:'✨'};grid.innerHTML=articles.map(a=>{const idx=wikiArticles.indexOf(a);const preview=a.body.replace(/<[^>]+>/g,'').substring(0,120)+'…';return`<div class="wl-card" onclick="openWikiArticle(${idx})"><div class="wl-card-img">${a.cover?`<img src="${a.cover}">`:(emojis[a.category]||'📄')}</div><div class="wl-card-body"><div class="wl-card-title">${a.title}</div><div class="wl-card-meta">By ${a.author} · ${a.date} · ${a.category}</div><div class="wl-card-preview">${preview}</div></div><div class="wl-card-tags">${(a.tags||[]).map(t=>`<span class="wl-card-tag">${t}</span>`).join('')}</div></div>`}).join('')}
+function openWikiArticle(idx){currentWikiIdx=idx;const a=wikiArticles[idx];document.getElementById('wa-heading').textContent=a.title;document.getElementById('wa-title').textContent=a.title;document.getElementById('wa-meta').innerHTML=`By <strong>${a.author}</strong> · ${a.date} · <span style="background:var(--g-badge);color:var(--g-badge-text);border-radius:8px;padding:2px 8px;font-size:.7rem;font-weight:700">${a.category}</span>`;document.getElementById('wa-body').innerHTML=a.body;const cov=document.getElementById('wa-cover');if(a.cover){cov.src=a.cover;cov.style.display='block';}else cov.style.display='none';document.getElementById('wikiArticle').classList.add('open');renderComments(a.comments||[])}
+function closeWikiArticle(){document.getElementById('wikiArticle').classList.remove('open');currentWikiIdx=-1}
+function deleteWikiArticle(){if(!confirm('Delete this article?'))return;wikiArticles.splice(currentWikiIdx,1);closeWikiArticle();renderWikiGrid(wikiArticles);renderWikiCats();toast('🗑 Deleted')}
+function editFromWiki(){if(currentWikiIdx<0)return;const a=wikiArticles[currentWikiIdx];document.getElementById('att').value=a.title;document.getElementById('bod').innerHTML=a.body;document.getElementById('auin').value=a.author;document.getElementById('acategory').value=a.category;closeWikiArticle();closeWikiLib();updStats();refreshOutline();toast('✏️ Loaded into editor!')}
+function renderComments(comments){const el=document.getElementById('wa-comments-list');if(!comments||comments.length===0){el.innerHTML='<div style="font-size:.78rem;color:var(--g-muted);margin-bottom:.7rem">No comments yet. Be the first!</div>';return;}const colors=['#f97316','#1a73e8','#188038','#7c3aed','#d93025'];el.innerHTML=comments.map((c,i)=>`<div class="comment"><div class="comm-author"><div class="comm-avatar" style="background:${colors[i%colors.length]};color:#fff">${c.author.charAt(0).toUpperCase()}</div>${c.author}</div><div class="comm-text">${c.text}</div><div class="comm-date">${c.date}</div></div>`).join('')}
+function addComment(){if(currentWikiIdx<0)return;const txt=document.getElementById('comm-input').value.trim(),name=document.getElementById('comm-name').value.trim()||'Anonymous';if(!txt)return;if(!wikiArticles[currentWikiIdx].comments)wikiArticles[currentWikiIdx].comments=[];wikiArticles[currentWikiIdx].comments.push({author:name,text:txt,date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})});document.getElementById('comm-input').value='';renderComments(wikiArticles[currentWikiIdx].comments);toast('💬 Comment added!')}
+
+// ══ WIKI PUBLISH ══
+function prepWikiModal(){document.getElementById('wikiPrevBody').textContent=document.getElementById('bod').innerHTML.replace(/<[^>]+>/g,'').substring(0,300)+'…';const au=document.getElementById('auin').value,cat=document.getElementById('acategory').value;if(au)document.getElementById('wk-author').value=au;if(cat)document.getElementById('wk-cat').value=cat}
+function publishToWiki(){const ti=document.getElementById('att').value.trim();if(!ti){toast('⚠️ Please add a title first!');return;}const bo=document.getElementById('bod').innerHTML.trim();if(!bo){toast('⚠️ Please write some content first!');return;}const au=document.getElementById('wk-author').value.trim()||document.getElementById('auin').value.trim()||'Anonymous',cat=document.getElementById('wk-cat').value||'General',rawTags=document.getElementById('atag').value.trim(),tags=rawTags?rawTags.split(',').map(t=>t.trim()).filter(Boolean):[];wikiArticles.unshift({id:Date.now(),title:ti,author:au,category:cat,date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),tags,body:bo,cover:coverURL||null,comments:[]});closeM('wiki');toast('🌐 Published to Wiki Library!');renderWikiCats()}
+
+// ══ INIT ══
+document.getElementById('adin').valueAsDate=new Date();
+buildRub();
+document.getElementById('lp-stickers').style.display='block';
+renderNotes();
+</script>
+</body>
+</html>
